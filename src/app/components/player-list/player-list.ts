@@ -11,7 +11,8 @@ import { Player } from '../../models/player.model';
 })
 export class PlayerList {
   private readonly playerService = inject(PlayerService);
-  readonly players = this.playerService.players;
+  readonly enabledPlayers = this.playerService.enabledPlayers;
+  readonly disabledPlayers = this.playerService.disabledPlayers;
 
   updateSkill(player: Player, skill: 'defense' | 'creation' | 'offense', value: number): void {
     this.playerService.updatePlayer({
@@ -22,6 +23,10 @@ export class PlayerList {
 
   deletePlayer(id: string): void {
     this.playerService.deletePlayer(id);
+  }
+
+  togglePlayer(id: string): void {
+    this.playerService.togglePlayer(id);
   }
 
   getTotalSkill(player: Player): number {

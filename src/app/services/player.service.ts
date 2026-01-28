@@ -9,16 +9,27 @@ export class PlayerService {
   private readonly storageKey = 'futbol-players';
   readonly players = signal<Player[]>(playersData);
 
+  readonly enabledPlayers = () => this.players().filter(p => p.enabled);
+  readonly disabledPlayers = () => this.players().filter(p => !p.enabled);
+
   private savePlayers(): void {
     localStorage.setItem(this.storageKey, JSON.stringify(this.players()));
   }
 
-  addPlayer(player: Omit<Player, 'id'>): void {
+  addPlayer(player: Omit<Player, 'id' | 'enabled'>): void {
     const newPlayer: Player = {
       ...player,
-      id: crypto.randomUUID()
+      id: crypto.randomUUID(),
+      enabled: true
     };
     this.players.update(players => [...players, newPlayer]);
+    this.savePlayers();
+  }
+
+  togglePlayer(id: string): void {
+    this.players.update(players =>
+      players.map(p => p.id === id ? { ...p, enabled: !p.enabled } : p)
+    );
     this.savePlayers();
   }
 
@@ -39,7 +50,7 @@ export class PlayerService {
   }
 
   generateTeams(): Team[] {
-    const allPlayers = [...this.players()];
+    const allPlayers = this.enabledPlayers();
     const totalPlayers = allPlayers.length;
 
     if (totalPlayers < 2) {

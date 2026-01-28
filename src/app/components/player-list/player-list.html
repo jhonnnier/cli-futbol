@@ -1,8 +1,8 @@
 <div class="player-list">
-  <h2>Lista de Jugadores</h2>
+  <h2>Jugadores Habilitados</h2>
 
-  @if (players().length === 0) {
-    <p class="empty-message">No hay jugadores registrados.</p>
+  @if (enabledPlayers().length === 0) {
+    <p class="empty-message">No hay jugadores habilitados.</p>
   } @else {
     <div class="table-container">
       <table>
@@ -17,7 +17,7 @@
           </tr>
         </thead>
         <tbody>
-          @for (player of players(); track player.id) {
+          @for (player of enabledPlayers(); track player.id) {
             <tr>
               <td class="player-name">{{ player.name }}</td>
               <td>
@@ -39,8 +39,63 @@
                 />
               </td>
               <td class="total-skill">{{ getTotalSkill(player) }}</td>
+              <td class="actions">
+                <button class="btn-toggle btn-disable" (click)="togglePlayer(player.id)" title="Deshabilitar">
+                  ❌
+                </button>
+                <button class="btn-delete" (click)="deletePlayer(player.id)" title="Eliminar">
+                  🗑️
+                </button>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+
+  @if (disabledPlayers().length > 0) {
+    <h2 class="disabled-title">Jugadores Deshabilitados</h2>
+    <div class="table-container">
+      <table class="disabled-table">
+        <thead>
+          <tr>
+            <th>Nombre</th>
+            <th>Defensa</th>
+            <th>Creación</th>
+            <th>Ofensiva</th>
+            <th>Total</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (player of disabledPlayers(); track player.id) {
+            <tr>
+              <td class="player-name">{{ player.name }}</td>
               <td>
-                <button class="btn-delete" (click)="deletePlayer(player.id)">
+                <app-star-rating
+                  [value]="player.defense"
+                  [readonly]="true"
+                />
+              </td>
+              <td>
+                <app-star-rating
+                  [value]="player.creation"
+                  [readonly]="true"
+                />
+              </td>
+              <td>
+                <app-star-rating
+                  [value]="player.offense"
+                  [readonly]="true"
+                />
+              </td>
+              <td class="total-skill">{{ getTotalSkill(player) }}</td>
+              <td class="actions">
+                <button class="btn-toggle btn-enable" (click)="togglePlayer(player.id)" title="Habilitar">
+                  ✅
+                </button>
+                <button class="btn-delete" (click)="deletePlayer(player.id)" title="Eliminar">
                   🗑️
                 </button>
               </td>

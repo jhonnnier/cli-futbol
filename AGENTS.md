@@ -7,3 +7,6 @@
 - la lista de jugadores del .json ya debe estar cargada 
 - cuando se inicia la app, se debe cargar la lista de jugadores
 - al iniciar la  aplicación se debe cargar los jugadores del .json en la sección donde está la lista de jugadores
+- se debe poder habilitar/deshabilitar jugadores en la lista de jugadores
+- cuando se deshabilitan jugadores se deben agregar a una lista de jugadores deshabilitados
+- solo repartir los equipo con la lista de jugadores habilitados
