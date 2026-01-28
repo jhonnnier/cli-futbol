@@ -12,3 +12,4 @@
 - solo repartir los equipo con la lista de jugadores habilitados
 - lista configurable, no visual, para que dos jugadores no se encuentren en el mismo equipo
 - configurar git remote: https://github.com/jhonnnier/cli-futbol.git
+  
