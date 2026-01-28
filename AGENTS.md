@@ -1,0 +1,9 @@
+- tener una lista de jugadores que se pueda calificar por estrellas dependiendo su nivel de habilidad de defensa, creadión y ofensiva
+- se debe poder leer los jugadores iniciales desde un .json
+- se debe poder agregar más jugadores a la lista
+- se debe poder repartir los jugadores en equipos, el numero de jugadores por equipo debe ser configurable, y que sea aleatorio teniendo en cuenta su nivel de habilidad
+- debe existir un boton para repartir los jugadores en equipos las veces que sea necesario
+- solamente pueden haber dos equipos
+- la lista de jugadores del .json ya debe estar cargada 
+- cuando se inicia la app, se debe cargar la lista de jugadores
+- al iniciar la  aplicación se debe cargar los jugadores del .json en la sección donde está la lista de jugadores

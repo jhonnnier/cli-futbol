@@ -1,0 +1,53 @@
+<div class="player-list">
+  <h2>Lista de Jugadores</h2>
+
+  @if (players().length === 0) {
+    <p class="empty-message">No hay jugadores registrados.</p>
+  } @else {
+    <div class="table-container">
+      <table>
+        <thead>
+          <tr>
+            <th>Nombre</th>
+            <th>Defensa</th>
+            <th>Creación</th>
+            <th>Ofensiva</th>
+            <th>Total</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (player of players(); track player.id) {
+            <tr>
+              <td class="player-name">{{ player.name }}</td>
+              <td>
+                <app-star-rating
+                  [value]="player.defense"
+                  (valueChange)="updateSkill(player, 'defense', $event)"
+                />
+              </td>
+              <td>
+                <app-star-rating
+                  [value]="player.creation"
+                  (valueChange)="updateSkill(player, 'creation', $event)"
+                />
+              </td>
+              <td>
+                <app-star-rating
+                  [value]="player.offense"
+                  (valueChange)="updateSkill(player, 'offense', $event)"
+                />
+              </td>
+              <td class="total-skill">{{ getTotalSkill(player) }}</td>
+              <td>
+                <button class="btn-delete" (click)="deletePlayer(player.id)">
+                  🗑️
+                </button>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+</div>

@@ -1,0 +1,42 @@
+<div class="team-generator">
+  <h2>Generar Equipos</h2>
+
+  <div class="config-section">
+    <button
+      class="btn-generate"
+      (click)="generateTeams()"
+      [disabled]="players().length < 2"
+    >
+      🎲 Repartir Equipos
+    </button>
+  </div>
+
+  @if (players().length < 2) {
+    <p class="warning">Se necesitan al menos 2 jugadores para generar equipos.</p>
+  }
+
+  @if (teams().length > 0) {
+    <div class="teams-grid">
+      @for (team of teams(); track team.name) {
+        <div class="team-card">
+          <div class="team-header">
+            <h3>{{ team.name }}</h3>
+            <span class="team-stats">
+              Total: {{ team.totalSkill }} | Prom: {{ getSkillAverage(team) }}
+            </span>
+          </div>
+          <ul class="team-players">
+            @for (player of team.players; track player.id) {
+              <li>
+                <span class="player-name">{{ player.name }}</span>
+                <span class="player-skill">
+                  ⚔️{{ player.offense }} 🎯{{ player.creation }} 🛡️{{ player.defense }}
+                </span>
+              </li>
+            }
+          </ul>
+        </div>
+      }
+    </div>
+  }
+</div>

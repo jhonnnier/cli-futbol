@@ -1,0 +1,12 @@
+[
+  { "id": "1", "name": "Jhonnier", "defense": 4, "creation": 3, "offense": 2 },
+  { "id": "2", "name": "Goku", "defense": 4, "creation": 3, "offense": 3 },
+  { "id": "3", "name": "Acosta", "defense": 3, "creation": 4, "offense": 3 },
+  { "id": "4", "name": "Oscar", "defense": 4, "creation": 2, "offense": 3 },
+  { "id": "5", "name": "Edinson", "defense": 4, "creation": 2, "offense": 2 },
+  { "id": "6", "name": "Jorge", "defense": 2, "creation": 2, "offense": 3 },
+  { "id": "7", "name": "Rodrigo", "defense": 4, "creation": 2, "offense": 3 },
+  { "id": "8", "name": "Javier", "defense": 2, "creation": 3, "offense": 4 },
+  { "id": "9", "name": "Camilo", "defense": 2, "creation": 3, "offense": 4 },
+  { "id": "10", "name": "Yhonier", "defense": 2, "creation": 3, "offense": 4 }
+]

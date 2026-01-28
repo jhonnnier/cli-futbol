@@ -1,0 +1,50 @@
+<div class="landing">
+  <header class="landing__header">
+    <nav class="landing__nav">
+      <div class="landing__logo">
+        <span class="landing__logo-icon">⚽</span>
+        <span class="landing__logo-text">Fútbol CLI</span>
+      </div>
+      <ul class="landing__menu">
+        <li><a href="#players">Jugadores</a></li>
+        <li><a href="#teams">Equipos</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="landing__main">
+    <section class="landing__hero">
+      <div class="landing__hero-content">
+        <h1 class="landing__title">
+          Organiza tu <span class="landing__highlight">Partido</span>
+        </h1>
+        <p class="landing__subtitle">
+          Gestiona jugadores, califica sus habilidades y genera equipos
+          balanceados de forma aleatoria.
+        </p>
+      </div>
+      <div class="landing__hero-image">
+        <div class="landing__ball-animation">⚽</div>
+      </div>
+    </section>
+
+    <section id="players" class="landing__section">
+      <div class="landing__grid">
+        <div class="landing__grid-main">
+          <app-player-list />
+        </div>
+        <div class="landing__grid-side">
+          <app-player-form />
+        </div>
+      </div>
+    </section>
+
+    <section id="teams" class="landing__section">
+      <app-team-generator />
+    </section>
+  </main>
+
+  <footer class="landing__footer">
+    <p>&copy; 2026 Fútbol CLI - Organiza tus partidos</p>
+  </footer>
+</div>

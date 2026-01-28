@@ -1,0 +1,48 @@
+<div class="player-form">
+  <h2>Agregar Jugador</h2>
+
+  <form (ngSubmit)="addPlayer()">
+    <div class="form-group">
+      <label for="name">Nombre del jugador</label>
+      <input
+        type="text"
+        id="name"
+        [ngModel]="name()"
+        (ngModelChange)="name.set($event)"
+        name="name"
+        placeholder="Ingresa el nombre"
+        required
+      />
+    </div>
+
+    <div class="skills-group">
+      <div class="skill-item">
+        <label>Defensa</label>
+        <app-star-rating
+          [value]="defense()"
+          (valueChange)="defense.set($event)"
+        />
+      </div>
+
+      <div class="skill-item">
+        <label>Creación</label>
+        <app-star-rating
+          [value]="creation()"
+          (valueChange)="creation.set($event)"
+        />
+      </div>
+
+      <div class="skill-item">
+        <label>Ofensiva</label>
+        <app-star-rating
+          [value]="offense()"
+          (valueChange)="offense.set($event)"
+        />
+      </div>
+    </div>
+
+    <button type="submit" class="btn-add" [disabled]="!name().trim()">
+      ➕ Agregar Jugador
+    </button>
+  </form>
+</div>
