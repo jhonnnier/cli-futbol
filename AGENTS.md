@@ -10,3 +10,4 @@
 - se debe poder habilitar/deshabilitar jugadores en la lista de jugadores
 - cuando se deshabilitan jugadores se deben agregar a una lista de jugadores deshabilitados
 - solo repartir los equipo con la lista de jugadores habilitados
+- lista configurable, no visual, para que dos jugadores no se encuentren en el mismo equipo

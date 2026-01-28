@@ -9,6 +9,12 @@ export class PlayerService {
   private readonly storageKey = 'futbol-players';
   readonly players = signal<Player[]>(playersData);
 
+  // Lista de pares de IDs de jugadores que no pueden estar en el mismo equipo
+  // Ejemplo: [['1', '2'], ['3', '4']] significa que 1 y 2 no pueden estar juntos, ni 3 y 4
+  private readonly separatedPairs: [string, string][] = [
+    ['6', '12']
+  ];
+
   readonly enabledPlayers = () => this.players().filter(p => p.enabled);
   readonly disabledPlayers = () => this.players().filter(p => !p.enabled);
 
@@ -57,28 +63,64 @@ export class PlayerService {
       return [];
     }
 
-    // Mezclar jugadores aleatoriamente primero
-    const shuffledPlayers = this.shuffleArray(allPlayers);
+    // Intentar generar equipos válidos (máximo 100 intentos)
+    for (let attempt = 0; attempt < 100; attempt++) {
+      const teams = this.tryGenerateTeams(allPlayers);
+      if (this.validateTeams(teams)) {
+        return teams;
+      }
+    }
 
-    // Ordenar por habilidad total (descendente)
-    shuffledPlayers.sort((a, b) => this.getPlayerSkill(b) - this.getPlayerSkill(a));
+    // Si no se pudo después de 100 intentos, retornar el último intento
+    return this.tryGenerateTeams(allPlayers);
+  }
 
+  private tryGenerateTeams(allPlayers: Player[]): Team[] {
     // Crear exactamente 2 equipos
     const teams: Team[] = [
       { name: 'Equipo 1', players: [], totalSkill: 0 },
       { name: 'Equipo 2', players: [], totalSkill: 0 }
     ];
 
-    // Distribuir jugadores usando snake draft para balancear (solo 2 equipos)
-    shuffledPlayers.forEach((player, index) => {
-      // Snake draft: 0,1,1,0,0,1,1,0...
-      const round = Math.floor(index / 2);
-      const posInRound = index % 2;
-      const teamIndex = round % 2 === 0 ? posInRound : 1 - posInRound;
+    // Primero, colocar jugadores que deben estar separados en equipos diferentes
+    const assignedIds = new Set<string>();
 
-      teams[teamIndex].players.push(player);
-      teams[teamIndex].totalSkill += this.getPlayerSkill(player);
-    });
+    for (const [id1, id2] of this.separatedPairs) {
+      const player1 = allPlayers.find(p => p.id === id1);
+      const player2 = allPlayers.find(p => p.id === id2);
+
+      if (player1 && player2 && !assignedIds.has(id1) && !assignedIds.has(id2)) {
+        // Asignar aleatoriamente a equipos diferentes
+        const firstTeam = Math.random() < 0.5 ? 0 : 1;
+        teams[firstTeam].players.push(player1);
+        teams[firstTeam].totalSkill += this.getPlayerSkill(player1);
+        teams[1 - firstTeam].players.push(player2);
+        teams[1 - firstTeam].totalSkill += this.getPlayerSkill(player2);
+        assignedIds.add(id1);
+        assignedIds.add(id2);
+      }
+    }
+
+    // Obtener jugadores restantes (no asignados)
+    const remainingPlayers = allPlayers.filter(p => !assignedIds.has(p.id));
+
+    // Mezclar y ordenar por habilidad
+    const shuffledRemaining = this.shuffleArray(remainingPlayers);
+    shuffledRemaining.sort((a, b) => this.getPlayerSkill(b) - this.getPlayerSkill(a));
+
+    // Distribuir restantes al equipo con menor habilidad total
+    for (const player of shuffledRemaining) {
+      // Verificar restricciones antes de asignar
+      let targetTeam = teams[0].totalSkill <= teams[1].totalSkill ? 0 : 1;
+
+      // Verificar si puede ir al equipo objetivo
+      if (!this.canAddToTeam(player, teams[targetTeam])) {
+        targetTeam = 1 - targetTeam;
+      }
+
+      teams[targetTeam].players.push(player);
+      teams[targetTeam].totalSkill += this.getPlayerSkill(player);
+    }
 
     // Mezclar jugadores dentro de cada equipo para variedad visual
     teams.forEach(team => {
@@ -86,6 +128,31 @@ export class PlayerService {
     });
 
     return teams;
+  }
+
+  private canAddToTeam(player: Player, team: Team): boolean {
+    const teamPlayerIds = team.players.map(p => p.id);
+    for (const [id1, id2] of this.separatedPairs) {
+      if (player.id === id1 && teamPlayerIds.includes(id2)) {
+        return false;
+      }
+      if (player.id === id2 && teamPlayerIds.includes(id1)) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  private validateTeams(teams: Team[]): boolean {
+    for (const team of teams) {
+      const playerIds = team.players.map(p => p.id);
+      for (const [id1, id2] of this.separatedPairs) {
+        if (playerIds.includes(id1) && playerIds.includes(id2)) {
+          return false;
+        }
+      }
+    }
+    return true;
   }
 
   private shuffleArray<T>(array: T[]): T[] {
