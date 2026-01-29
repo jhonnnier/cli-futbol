@@ -2,6 +2,11 @@
   h2 {
     color: #00d4ff;
     margin-bottom: 1.5rem;
+
+    @media (max-width: 768px) {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+    }
   }
 
   .empty-message {
@@ -12,6 +17,12 @@
 
   .table-container {
     overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+
+    @media (max-width: 768px) {
+      margin: 0 -1rem;
+      padding: 0 1rem;
+    }
   }
 
   table {
@@ -26,6 +37,11 @@
     padding: 1rem;
     text-align: left;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+
+    @media (max-width: 768px) {
+      padding: 0.75rem 0.5rem;
+      font-size: 0.875rem;
+    }
   }
 
   th {
@@ -35,6 +51,11 @@
     text-transform: uppercase;
     font-size: 0.85rem;
     letter-spacing: 0.5px;
+
+    @media (max-width: 768px) {
+      font-size: 0.75rem;
+      white-space: nowrap;
+    }
   }
 
   tr:hover {
@@ -55,6 +76,11 @@
   .actions {
     display: flex;
     gap: 0.5rem;
+
+    @media (max-width: 768px) {
+      gap: 0.25rem;
+      flex-wrap: wrap;
+    }
   }
 
   .btn-toggle,
@@ -64,6 +90,11 @@
     cursor: pointer;
     transition: all 0.3s;
     border: 1px solid;
+
+    @media (max-width: 768px) {
+      padding: 0.4rem 0.6rem;
+      font-size: 0.8rem;
+    }
   }
 
   .btn-delete {

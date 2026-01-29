@@ -25,6 +25,13 @@
               Total: {{ team.totalSkill }} | Prom: {{ getSkillAverage(team) }}
             </span>
           </div>
+          @if (team.goalkeeper) {
+            <div class="team-goalkeeper">
+              <span class="goalkeeper-icon">🧤</span>
+              <span class="goalkeeper-name">{{ team.goalkeeper.name }}</span>
+              <span class="goalkeeper-skill">⭐{{ team.goalkeeper.skill }}</span>
+            </div>
+          }
           <ul class="team-players">
             @for (player of team.players; track player.id) {
               <li>

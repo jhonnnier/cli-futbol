@@ -188,8 +188,7 @@ ng build --base-href /cli-futbol/
 
 npx angular-cli-ghpages \
   --dir=dist/cli-futbol/browser \
-  --repo=https://github.com/jhonnnier/cli-futbol.git \
-  --no-history
+  --repo=https://github.com/jhonnnier/cli-futbol.git
 ```
 
 ---

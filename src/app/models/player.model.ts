@@ -7,8 +7,16 @@ export interface Player {
   enabled: boolean;
 }
 
+export interface Goalkeeper {
+  id: string;
+  name: string;
+  skill: number; // 1-5 estrellas
+  selected: boolean;
+}
+
 export interface Team {
   name: string;
   players: Player[];
+  goalkeeper?: Goalkeeper;
   totalSkill: number;
 }

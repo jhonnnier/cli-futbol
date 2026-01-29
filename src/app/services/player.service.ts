@@ -1,12 +1,14 @@
-import { Injectable, signal } from '@angular/core';
+import { Injectable, signal, inject } from '@angular/core';
 import { Player, Team } from '../models/player.model';
 import playersData from '../../assets/data/players.json';
+import { GoalkeeperService } from './goalkeeper.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PlayerService {
   private readonly storageKey = 'futbol-players';
+  private readonly goalkeeperService = inject(GoalkeeperService);
   readonly players = signal<Player[]>(playersData);
 
   // Lista de pares de IDs de jugadores que no pueden estar en el mismo equipo
@@ -67,12 +69,28 @@ export class PlayerService {
     for (let attempt = 0; attempt < 100; attempt++) {
       const teams = this.tryGenerateTeams(allPlayers);
       if (this.validateTeams(teams)) {
+        this.distributeGoalkeepers(teams);
         return teams;
       }
     }
 
     // Si no se pudo después de 100 intentos, retornar el último intento
-    return this.tryGenerateTeams(allPlayers);
+    const teams = this.tryGenerateTeams(allPlayers);
+    this.distributeGoalkeepers(teams);
+    return teams;
+  }
+
+  private distributeGoalkeepers(teams: Team[]): void {
+    const selectedGoalkeepers = this.goalkeeperService.selectedGoalkeepers();
+    
+    if (selectedGoalkeepers.length === 2 && teams.length === 2) {
+      // Asignar un arquero a cada equipo
+      teams[0].goalkeeper = selectedGoalkeepers[0];
+      teams[1].goalkeeper = selectedGoalkeepers[1];
+    } else if (selectedGoalkeepers.length === 1 && teams.length >= 1) {
+      // Si solo hay un arquero, asignarlo al primer equipo
+      teams[0].goalkeeper = selectedGoalkeepers[0];
+    }
   }
 
   private tryGenerateTeams(allPlayers: Player[]): Team[] {

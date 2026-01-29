@@ -22,6 +22,10 @@
     max-width: 1200px;
     margin: 0 auto;
     padding: 1rem 2rem;
+
+    @media (max-width: 768px) {
+      padding: 1rem;
+    }
   }
 
   &__logo {
@@ -31,8 +35,16 @@
     font-size: 1.5rem;
     font-weight: bold;
 
+    @media (max-width: 768px) {
+      font-size: 1.2rem;
+    }
+
     &-icon {
       font-size: 2rem;
+
+      @media (max-width: 768px) {
+        font-size: 1.5rem;
+      }
     }
 
     &-text {
@@ -75,6 +87,13 @@
     padding: 2rem;
     gap: 2rem;
 
+    @media (max-width: 768px) {
+      padding: 1.5rem 1rem;
+      min-height: auto;
+      padding-top: 2rem;
+      padding-bottom: 2rem;
+    }
+
     &-content {
       flex: 1;
     }
@@ -91,6 +110,15 @@
     font-size: 3.5rem;
     line-height: 1.2;
     margin-bottom: 1.5rem;
+
+    @media (max-width: 768px) {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+
+    @media (max-width: 480px) {
+      font-size: 1.75rem;
+    }
   }
 
   &__highlight {
@@ -105,6 +133,11 @@
     color: rgba(255, 255, 255, 0.8);
     margin-bottom: 2rem;
     max-width: 500px;
+
+    @media (max-width: 768px) {
+      font-size: 1rem;
+      margin-bottom: 1.5rem;
+    }
   }
 
   &__cta {
@@ -120,6 +153,12 @@
     border-radius: 50px;
     cursor: pointer;
     transition: transform 0.3s, box-shadow 0.3s;
+
+    @media (max-width: 768px) {
+      padding: 0.875rem 1.5rem;
+      font-size: 0.9rem;
+      width: 100%;
+    }
 
     &:hover {
       transform: translateY(-2px);
@@ -160,12 +199,21 @@
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
+
+    @media (max-width: 768px) {
+      font-size: 1.75rem;
+      margin-bottom: 2rem;
+    }
   }
 
   &__section {
     padding: 3rem 2rem;
     max-width: 1200px;
     margin: 0 auto;
+
+    @media (max-width: 768px) {
+      padding: 2rem 1rem;
+    }
   }
 
   &__grid {
@@ -175,6 +223,7 @@
 
     @media (max-width: 900px) {
       grid-template-columns: 1fr;
+      gap: 1.5rem;
     }
   }
 
@@ -212,10 +261,6 @@
       text-align: center;
     }
 
-    &__title {
-      font-size: 2.5rem;
-    }
-
     &__subtitle {
       margin-left: auto;
       margin-right: auto;
@@ -223,7 +268,8 @@
 
     &__cta {
       justify-content: center;
-      flex-wrap: wrap;
+      flex-direction: column;
+      width: 100%;
     }
 
     &__ball-animation {
