@@ -6,7 +6,8 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "deploy": "ng build --configuration production --base-href /cli-futbol/ && npx angular-cli-ghpages --dir=dist/cli-futbol-app/browser"
   },
   "prettier": {
     "printWidth": 100,
