@@ -125,8 +125,7 @@ Ejecuta el siguiente comando apuntando a la carpeta correcta (`browser`):
 ```bash
 npx angular-cli-ghpages \
   --dir=dist/cli-futbol/browser \
-  --repo=https://github.com/jhonnnier/cli-futbol.git \
-  --no-history
+  --repo=https://github.com/jhonnnier/cli-futbol.git 
 ```
 
 Cuando se solicite autenticación:
