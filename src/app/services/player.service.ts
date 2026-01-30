@@ -94,10 +94,15 @@ export class PlayerService {
   }
 
   private tryGenerateTeams(allPlayers: Player[]): Team[] {
-    // Crear exactamente 2 equipos
+    // Crear exactamente 2 equipos con estadísticas detalladas
     const teams: Team[] = [
       { name: 'Equipo 1', players: [], totalSkill: 0 },
       { name: 'Equipo 2', players: [], totalSkill: 0 }
+    ];
+
+    const teamStats = [
+      { defense: 0, creation: 0, offense: 0 },
+      { defense: 0, creation: 0, offense: 0 }
     ];
 
     // Primero, colocar jugadores que deben estar separados en equipos diferentes
@@ -112,8 +117,16 @@ export class PlayerService {
         const firstTeam = Math.random() < 0.5 ? 0 : 1;
         teams[firstTeam].players.push(player1);
         teams[firstTeam].totalSkill += this.getPlayerSkill(player1);
+        teamStats[firstTeam].defense += player1.defense;
+        teamStats[firstTeam].creation += player1.creation;
+        teamStats[firstTeam].offense += player1.offense;
+
         teams[1 - firstTeam].players.push(player2);
         teams[1 - firstTeam].totalSkill += this.getPlayerSkill(player2);
+        teamStats[1 - firstTeam].defense += player2.defense;
+        teamStats[1 - firstTeam].creation += player2.creation;
+        teamStats[1 - firstTeam].offense += player2.offense;
+
         assignedIds.add(id1);
         assignedIds.add(id2);
       }
@@ -122,22 +135,51 @@ export class PlayerService {
     // Obtener jugadores restantes (no asignados)
     const remainingPlayers = allPlayers.filter(p => !assignedIds.has(p.id));
 
-    // Mezclar y ordenar por habilidad
+    // Mezclar y ordenar por habilidad total
     const shuffledRemaining = this.shuffleArray(remainingPlayers);
     shuffledRemaining.sort((a, b) => this.getPlayerSkill(b) - this.getPlayerSkill(a));
 
-    // Distribuir restantes al equipo con menor habilidad total
+    // Distribuir restantes balanceando por tipo de habilidad
     for (const player of shuffledRemaining) {
-      // Verificar restricciones antes de asignar
-      let targetTeam = teams[0].totalSkill <= teams[1].totalSkill ? 0 : 1;
+      // Calcular diferencias en cada habilidad
+      const defDiff = Math.abs(teamStats[0].defense - teamStats[1].defense);
+      const creDiff = Math.abs(teamStats[0].creation - teamStats[1].creation);
+      const offDiff = Math.abs(teamStats[0].offense - teamStats[1].offense);
+      const totalDiff = Math.abs(teams[0].totalSkill - teams[1].totalSkill);
 
-      // Verificar si puede ir al equipo objetivo
+      // Calcular score de desbalance para cada equipo si agregamos el jugador
+      const score0 = this.calculateImbalanceScore(
+        teamStats[0].defense + player.defense,
+        teamStats[1].defense,
+        teamStats[0].creation + player.creation,
+        teamStats[1].creation,
+        teamStats[0].offense + player.offense,
+        teamStats[1].offense
+      );
+
+      const score1 = this.calculateImbalanceScore(
+        teamStats[0].defense,
+        teamStats[1].defense + player.defense,
+        teamStats[0].creation,
+        teamStats[1].creation + player.creation,
+        teamStats[0].offense,
+        teamStats[1].offense + player.offense
+      );
+
+      // Elegir el equipo que minimiza el desbalance
+      let targetTeam = score0 <= score1 ? 0 : 1;
+
+      // Verificar restricciones antes de asignar
       if (!this.canAddToTeam(player, teams[targetTeam])) {
         targetTeam = 1 - targetTeam;
       }
 
+      // Asignar jugador al equipo
       teams[targetTeam].players.push(player);
       teams[targetTeam].totalSkill += this.getPlayerSkill(player);
+      teamStats[targetTeam].defense += player.defense;
+      teamStats[targetTeam].creation += player.creation;
+      teamStats[targetTeam].offense += player.offense;
     }
 
     // Mezclar jugadores dentro de cada equipo para variedad visual
@@ -146,6 +188,20 @@ export class PlayerService {
     });
 
     return teams;
+  }
+
+  private calculateImbalanceScore(
+    def1: number, def2: number,
+    cre1: number, cre2: number,
+    off1: number, off2: number
+  ): number {
+    // Calcular diferencias absolutas en cada categoría
+    const defDiff = Math.abs(def1 - def2);
+    const creDiff = Math.abs(cre1 - cre2);
+    const offDiff = Math.abs(off1 - off2);
+    
+    // Retornar la suma de diferencias (menor es mejor)
+    return defDiff + creDiff + offDiff;
   }
 
   private canAddToTeam(player: Player, team: Team): boolean {
