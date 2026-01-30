@@ -1,4 +1,4 @@
-import { Injectable, signal, inject } from '@angular/core';
+import { Injectable, signal, inject, computed } from '@angular/core';
 import { Player, Team } from '../models/player.model';
 import playersData from '../../assets/data/players.json';
 import { GoalkeeperService } from './goalkeeper.service';
@@ -9,7 +9,15 @@ import { GoalkeeperService } from './goalkeeper.service';
 export class PlayerService {
   private readonly storageKey = 'futbol-players';
   private readonly goalkeeperService = inject(GoalkeeperService);
-  readonly players = signal<Player[]>(playersData);
+  private readonly playersData = signal<Player[]>(playersData);
+  
+  readonly players = computed(() => {
+    const allPlayers = this.playersData();
+    return [...allPlayers].sort((a, b) => {
+      if (a.enabled === b.enabled) return 0;
+      return a.enabled ? -1 : 1;
+    });
+  });
 
   // Lista de pares de IDs de jugadores que no pueden estar en el mismo equipo
   // Ejemplo: [['6', '12'], ['3', '4']] significa que 1 y 2 no pueden estar juntos, ni 3 y 4
@@ -21,7 +29,7 @@ export class PlayerService {
   readonly disabledPlayers = () => this.players().filter(p => !p.enabled);
 
   private savePlayers(): void {
-    localStorage.setItem(this.storageKey, JSON.stringify(this.players()));
+    localStorage.setItem(this.storageKey, JSON.stringify(this.playersData()));
   }
 
   addPlayer(player: Omit<Player, 'id' | 'enabled'>): void {
@@ -30,26 +38,26 @@ export class PlayerService {
       id: crypto.randomUUID(),
       enabled: true
     };
-    this.players.update(players => [...players, newPlayer]);
+    this.playersData.update(players => [...players, newPlayer]);
     this.savePlayers();
   }
 
   togglePlayer(id: string): void {
-    this.players.update(players =>
+    this.playersData.update(players =>
       players.map(p => p.id === id ? { ...p, enabled: !p.enabled } : p)
     );
     this.savePlayers();
   }
 
   updatePlayer(updatedPlayer: Player): void {
-    this.players.update(players =>
+    this.playersData.update(players =>
       players.map(p => p.id === updatedPlayer.id ? updatedPlayer : p)
     );
     this.savePlayers();
   }
 
   deletePlayer(id: string): void {
-    this.players.update(players => players.filter(p => p.id !== id));
+    this.playersData.update(players => players.filter(p => p.id !== id));
     this.savePlayers();
   }
 

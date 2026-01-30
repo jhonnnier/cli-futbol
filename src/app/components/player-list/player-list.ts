@@ -11,6 +11,7 @@ import { Player } from '../../models/player.model';
 })
 export class PlayerList {
   private readonly playerService = inject(PlayerService);
+  readonly players = this.playerService.players;
   readonly enabledPlayers = this.playerService.enabledPlayers;
   readonly disabledPlayers = this.playerService.disabledPlayers;
 

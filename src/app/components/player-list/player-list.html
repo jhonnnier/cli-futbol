@@ -1,104 +1,70 @@
 <div class="player-list">
-  <h2>Jugadores Habilitados</h2>
+  <div class="header">
+    <h2>Jugadores</h2>
+    <div class="counter">
+      <span class="counter-label">Habilitados:</span>
+      <span class="counter-value">{{ enabledPlayers().length }}</span>
+      <span class="counter-total">/ {{ players().length }}</span>
+    </div>
+  </div>
 
-  @if (enabledPlayers().length === 0) {
-    <p class="empty-message">No hay jugadores habilitados.</p>
+  @if (players().length === 0) {
+    <p class="empty-message">No hay jugadores disponibles.</p>
   } @else {
     <div class="table-container">
       <table>
         <thead>
           <tr>
+            <th></th>
             <th>Nombre</th>
             <th>Defensa</th>
             <th>Creación</th>
             <th>Ofensiva</th>
             <th>Total</th>
-            <th>Acciones</th>
+            <!--<th>Acciones</th>-->
           </tr>
         </thead>
         <tbody>
-          @for (player of enabledPlayers(); track player.id) {
-            <tr>
+          @for (player of players(); track player.id) {
+            <tr [class.disabled-row]="!player.enabled">
+              <td class="checkbox-cell">
+                <label class="checkbox-container">
+                  <input 
+                    type="checkbox" 
+                    [checked]="player.enabled"
+                    (change)="togglePlayer(player.id)"
+                  />
+                  <span class="checkmark"></span>
+                </label>
+              </td>
               <td class="player-name">{{ player.name }}</td>
               <td>
                 <app-star-rating
                   [value]="player.defense"
+                  [readonly]="!player.enabled"
                   (valueChange)="updateSkill(player, 'defense', $event)"
                 />
               </td>
               <td>
                 <app-star-rating
                   [value]="player.creation"
+                  [readonly]="!player.enabled"
                   (valueChange)="updateSkill(player, 'creation', $event)"
                 />
               </td>
               <td>
                 <app-star-rating
                   [value]="player.offense"
+                  [readonly]="!player.enabled"
                   (valueChange)="updateSkill(player, 'offense', $event)"
                 />
               </td>
               <td class="total-skill">{{ getTotalSkill(player) }}</td>
-              <td class="actions">
-                <button class="btn-toggle btn-disable" (click)="togglePlayer(player.id)" title="Deshabilitar">
-                  ❌
-                </button>
+              <!--<td class="actions">
                 <button class="btn-delete" (click)="deletePlayer(player.id)" title="Eliminar">
                   🗑️
                 </button>
-              </td>
-            </tr>
-          }
-        </tbody>
-      </table>
-    </div>
-  }
-
-  @if (disabledPlayers().length > 0) {
-    <h2 class="disabled-title">Jugadores Deshabilitados</h2>
-    <div class="table-container">
-      <table class="disabled-table">
-        <thead>
-          <tr>
-            <th>Nombre</th>
-            <th>Defensa</th>
-            <th>Creación</th>
-            <th>Ofensiva</th>
-            <th>Total</th>
-            <th>Acciones</th>
-          </tr>
-        </thead>
-        <tbody>
-          @for (player of disabledPlayers(); track player.id) {
-            <tr>
-              <td class="player-name">{{ player.name }}</td>
-              <td>
-                <app-star-rating
-                  [value]="player.defense"
-                  [readonly]="true"
-                />
-              </td>
-              <td>
-                <app-star-rating
-                  [value]="player.creation"
-                  [readonly]="true"
-                />
-              </td>
-              <td>
-                <app-star-rating
-                  [value]="player.offense"
-                  [readonly]="true"
-                />
-              </td>
-              <td class="total-skill">{{ getTotalSkill(player) }}</td>
-              <td class="actions">
-                <button class="btn-toggle btn-enable" (click)="togglePlayer(player.id)" title="Habilitar">
-                  ✅
-                </button>
-                <button class="btn-delete" (click)="deletePlayer(player.id)" title="Eliminar">
-                  🗑️
-                </button>
-              </td>
+              </td>-->
             </tr>
           }
         </tbody>
