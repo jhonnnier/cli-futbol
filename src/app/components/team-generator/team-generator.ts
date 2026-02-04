@@ -19,6 +19,16 @@ export class TeamGenerator {
     this.teams.set(generatedTeams);
   }
 
+  generateTeamsAndScroll(): void {
+    this.generateTeams();
+    setTimeout(() => {
+      const element = document.getElementById('teams-section');
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }, 100);
+  }
+
   getSkillAverage(team: Team): number {
     if (team.players.length === 0) return 0;
     return Math.round((team.totalSkill / team.players.length) * 10) / 10;

@@ -11,12 +11,21 @@
     </button>
   </div>
 
+  <button
+    class="btn-floating"
+    (click)="generateTeamsAndScroll()"
+    [disabled]="players().length < 2"
+    title="Repartir Equipos"
+  >
+    ⚽
+  </button>
+
   @if (players().length < 2) {
     <p class="warning">Se necesitan al menos 2 jugadores para generar equipos.</p>
   }
 
   @if (teams().length > 0) {
-    <div class="teams-grid">
+    <div id="teams-section" class="teams-grid">
       @for (team of teams(); track team.name; let teamIdx = $index) {
         <div class="team-card" [class.team-two]="teamIdx === 1">
           <div class="team-header">
