@@ -7,6 +7,7 @@ export interface Player {
   enabled: boolean;
   lastToggled?: number; // timestamp de la última vez que se cambió enabled
   order?: number; // orden de visualización
+  image?: string; // URL o ruta de la imagen del jugador
 }
 
 export interface Goalkeeper {
