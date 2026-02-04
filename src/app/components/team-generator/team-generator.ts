@@ -42,9 +42,11 @@ export class TeamGenerator {
     }
   }
 
-  getSortedPlayers(players: Player[]): Player[] {
+  getSortedPlayers(players: Player[], reverseOrder: boolean = false): Player[] {
     return [...players].sort((a, b) => {
-      const posOrder = { defense: 0, creation: 1, offense: 2 };
+      const posOrder = reverseOrder 
+        ? { offense: 0, creation: 1, defense: 2 }
+        : { defense: 0, creation: 1, offense: 2 };
       const posA = this.getPlayerPosition(a);
       const posB = this.getPlayerPosition(b);
       return posOrder[posA] - posOrder[posB];

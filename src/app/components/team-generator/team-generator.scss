@@ -15,29 +15,27 @@
     border-radius: 12px;
   }
 
-  .config-item {
-    label {
-      display: block;
-      margin-bottom: 0.5rem;
-      color: rgba(255, 255, 255, 0.8);
-      font-weight: 500;
-    }
+  .config-item label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: rgba(255, 255, 255, 0.8);
+    font-weight: 500;
+  }
 
-    input {
-      width: 80px;
-      padding: 0.75rem 1rem;
-      background: rgba(255, 255, 255, 0.08);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      border-radius: 8px;
-      color: #fff;
-      font-size: 1rem;
-      text-align: center;
+  .config-item input {
+    width: 80px;
+    padding: 0.75rem 1rem;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    color: #fff;
+    font-size: 1rem;
+    text-align: center;
 
-      &:focus {
-        outline: none;
-        border-color: #00d4ff;
-        box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.2);
-      }
+    &:focus {
+      outline: none;
+      border-color: #00d4ff;
+      box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.2);
     }
   }
 
@@ -111,7 +109,7 @@
   }
 
   .formation-field {
-    background: linear-gradient(180deg, rgba(34, 139, 34, 0.3) 0%, rgba(34, 139, 34, 0.1) 100%);
+    background: linear-gradient(180deg, rgba(34, 139, 34, 0.3), rgba(34, 139, 34, 0.1));
     padding: 2rem 1rem;
     min-height: 400px;
     display: flex;
@@ -133,10 +131,6 @@
     align-items: center;
     gap: 1.5rem;
     flex-wrap: wrap;
-
-    &.goalkeeper-row {
-      justify-content: center;
-    }
   }
 
   .player-avatar {
@@ -146,41 +140,27 @@
     gap: 0.5rem;
     position: relative;
 
-    &.goalkeeper {
-      .avatar-circle {
-        background: linear-gradient(135deg, #00d4ff, #0099cc);
-        border-color: #00d4ff;
-      }
+    &.goalkeeper .avatar-circle {
+      background: linear-gradient(135deg, #00d4ff, #0099cc);
+      border-color: #00d4ff;
     }
 
-    &[data-position="defense"] {
-      .avatar-circle {
-        background: linear-gradient(135deg, #4a90e2, #357abd);
-        border-color: #4a90e2;
-      }
-      .player-rating {
-        background: #4a90e2;
-      }
+    &[data-position="defense"] .avatar-circle,
+    &[data-position="defense"] .player-rating {
+      background: linear-gradient(135deg, #4a90e2, #357abd);
+      border-color: #4a90e2;
     }
 
-    &[data-position="creation"] {
-      .avatar-circle {
-        background: linear-gradient(135deg, #50c878, #3da35d);
-        border-color: #50c878;
-      }
-      .player-rating {
-        background: #50c878;
-      }
+    &[data-position="creation"] .avatar-circle,
+    &[data-position="creation"] .player-rating {
+      background: linear-gradient(135deg, #50c878, #3da35d);
+      border-color: #50c878;
     }
 
-    &[data-position="offense"] {
-      .avatar-circle {
-        background: linear-gradient(135deg, #ff6b6b, #ee5a6f);
-        border-color: #ff6b6b;
-      }
-      .player-rating {
-        background: #ff6b6b;
-      }
+    &[data-position="offense"] .avatar-circle,
+    &[data-position="offense"] .player-rating {
+      background: linear-gradient(135deg, #ff6b6b, #ee5a6f);
+      border-color: #ff6b6b;
     }
   }
 
@@ -199,17 +179,9 @@
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
     transition: transform 0.3s;
 
-    &:hover {
-      transform: scale(1.1);
-    }
-
-    .player-initial {
-      font-size: 1.8rem;
-    }
-
-    .goalkeeper-icon {
-      font-size: 2rem;
-    }
+    &:hover { transform: scale(1.1); }
+    .player-initial { font-size: 1.8rem; }
+    .goalkeeper-icon { font-size: 2rem; }
   }
 
   .player-rating {
@@ -226,9 +198,7 @@
     text-align: center;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
 
-    &.goalkeeper-rating {
-      background: #00d4ff;
-    }
+    &.goalkeeper-rating { background: #00d4ff; }
   }
 
   .player-info {
@@ -253,10 +223,7 @@
 
 @media (max-width: 768px) {
   .team-generator {
-    h2 {
-      font-size: 1.5rem;
-      margin-bottom: 1rem;
-    }
+    h2 { font-size: 1.5rem; margin-bottom: 1rem; }
 
     .config-section {
       padding: 1rem;
@@ -268,82 +235,39 @@
 
     .config-item {
       width: 100%;
-
-      label {
-        font-size: 0.9rem;
-      }
-
-      input {
-        width: 100%;
-        padding: 0.625rem 0.875rem;
-        font-size: 0.9rem;
-      }
+      label { font-size: 0.9rem; }
+      input { width: 100%; padding: 0.625rem 0.875rem; font-size: 0.9rem; }
     }
 
-    .btn-generate {
-      width: 100%;
-      padding: 0.875rem;
-      font-size: 0.9rem;
-    }
-
-    .warning {
-      padding: 0.875rem;
-      font-size: 0.9rem;
-    }
-
-    .teams-grid {
-      grid-template-columns: 1fr;
-      gap: 1rem;
-    }
+    .btn-generate, .warning { width: 100%; padding: 0.875rem; font-size: 0.9rem; }
+    .teams-grid { grid-template-columns: 1fr; gap: 1rem; }
 
     .team-header {
       padding: 0.875rem 1rem;
-
-      h3 {
-        font-size: 1rem;
-      }
-
-      .team-stats {
-        font-size: 0.8rem;
-      }
+      h3 { font-size: 1rem; }
+      .team-stats { font-size: 0.8rem; }
     }
 
-    .formation-field {
-      padding: 1.5rem 0.5rem;
-      min-height: 350px;
+    .formation-field { 
+      padding: 1.5rem 0.5rem; 
+      min-height: 350px; 
       gap: 1rem;
     }
 
-    .formation-rows {
-      gap: 1rem;
+    .team-two .formation-field {
+      flex-direction: column-reverse;
     }
-
-    .formation-row {
-      gap: 1rem;
-    }
+    
+    .formation-rows, .formation-row { gap: 1rem; }
 
     .avatar-circle {
       width: 60px;
       height: 60px;
-
-      .player-initial {
-        font-size: 1.5rem;
-      }
-
-      .goalkeeper-icon {
-        font-size: 1.7rem;
-      }
+      .player-initial { font-size: 1.5rem; }
+      .goalkeeper-icon { font-size: 1.7rem; }
     }
 
-    .player-rating {
-      font-size: 0.8rem;
-      padding: 0.2rem 0.4rem;
-      min-width: 30px;
-    }
-
-    .player-name {
-      font-size: 0.75rem;
-      max-width: 80px;
-    }
+    .player-rating { font-size: 0.8rem; padding: 0.2rem 0.4rem; min-width: 30px; }
+    .player-name { font-size: 0.75rem; max-width: 80px; }
   }
 }

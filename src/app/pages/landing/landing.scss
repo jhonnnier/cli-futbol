@@ -35,16 +35,11 @@
     font-size: 1.5rem;
     font-weight: bold;
 
-    @media (max-width: 768px) {
-      font-size: 1.2rem;
-    }
+    @media (max-width: 768px) { font-size: 1.2rem; }
 
     &-icon {
       font-size: 2rem;
-
-      @media (max-width: 768px) {
-        font-size: 1.5rem;
-      }
+      @media (max-width: 768px) { font-size: 1.5rem; }
     }
 
     &-text {
@@ -62,28 +57,16 @@
     margin: 0;
     padding: 0;
 
-    @media (max-width: 768px) {
-      gap: 1rem;
-      font-size: 0.9rem;
-    }
+    @media (max-width: 768px) { gap: 1rem; font-size: 0.9rem; }
+    @media (max-width: 480px) { gap: 0.75rem; font-size: 0.85rem; }
 
-    @media (max-width: 480px) {
-      gap: 0.75rem;
-      font-size: 0.85rem;
-    }
-
-    li {
-      white-space: nowrap;
-    }
+    li { white-space: nowrap; }
 
     a {
       color: #fff;
       text-decoration: none;
       transition: color 0.3s;
-
-      &:hover {
-        color: #00d4ff;
-      }
+      &:hover { color: #00d4ff; }
     }
   }
 
@@ -125,14 +108,8 @@
     line-height: 1.2;
     margin-bottom: 1.5rem;
 
-    @media (max-width: 768px) {
-      font-size: 2rem;
-      margin-bottom: 1rem;
-    }
-
-    @media (max-width: 480px) {
-      font-size: 1.75rem;
-    }
+    @media (max-width: 768px) { font-size: 2rem; margin-bottom: 1rem; }
+    @media (max-width: 480px) { font-size: 1.75rem; }
   }
 
   &__highlight {
@@ -148,10 +125,7 @@
     margin-bottom: 2rem;
     max-width: 500px;
 
-    @media (max-width: 768px) {
-      font-size: 1rem;
-      margin-bottom: 1.5rem;
-    }
+    @media (max-width: 768px) { font-size: 1rem; margin-bottom: 1.5rem; }
   }
 
   &__cta {
@@ -168,35 +142,21 @@
     cursor: pointer;
     transition: transform 0.3s, box-shadow 0.3s;
 
-    @media (max-width: 768px) {
-      padding: 0.875rem 1.5rem;
-      font-size: 0.9rem;
-      width: 100%;
-    }
-
-    &:hover {
-      transform: translateY(-2px);
-    }
+    @media (max-width: 768px) { padding: 0.875rem 1.5rem; font-size: 0.9rem; width: 100%; }
+    &:hover { transform: translateY(-2px); }
 
     &--primary {
       background: linear-gradient(90deg, #00d4ff, #7b2cbf);
       color: #fff;
       box-shadow: 0 4px 20px rgba(0, 212, 255, 0.4);
-
-      &:hover {
-        box-shadow: 0 6px 30px rgba(0, 212, 255, 0.6);
-      }
+      &:hover { box-shadow: 0 6px 30px rgba(0, 212, 255, 0.6); }
     }
 
     &--secondary {
       background: transparent;
       color: #fff;
       border: 2px solid rgba(255, 255, 255, 0.3);
-
-      &:hover {
-        border-color: #00d4ff;
-        color: #00d4ff;
-      }
+      &:hover { border-color: #00d4ff; color: #00d4ff; }
     }
   }
 
@@ -214,10 +174,7 @@
     -webkit-text-fill-color: transparent;
     background-clip: text;
 
-    @media (max-width: 768px) {
-      font-size: 1.75rem;
-      margin-bottom: 2rem;
-    }
+    @media (max-width: 768px) { font-size: 1.75rem; margin-bottom: 2rem; }
   }
 
   &__section {
@@ -225,9 +182,7 @@
     max-width: 1200px;
     margin: 0 auto;
 
-    @media (max-width: 768px) {
-      padding: 2rem 1rem;
-    }
+    @media (max-width: 768px) { padding: 2rem 1rem; }
   }
 
   &__grid {
@@ -235,10 +190,7 @@
     grid-template-columns: 1fr 350px;
     gap: 2rem;
 
-    @media (max-width: 900px) {
-      grid-template-columns: 1fr;
-      gap: 1.5rem;
-    }
+    @media (max-width: 900px) { grid-template-columns: 1fr; gap: 1.5rem; }
   }
 
   &__grid-main {

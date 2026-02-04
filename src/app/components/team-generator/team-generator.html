@@ -17,15 +17,15 @@
 
   @if (teams().length > 0) {
     <div class="teams-grid">
-      @for (team of teams(); track team.name) {
-        <div class="team-card">
+      @for (team of teams(); track team.name; let teamIdx = $index) {
+        <div class="team-card" [class.team-two]="teamIdx === 1">
           <div class="team-header">
             <h3>{{ team.name }}</h3>
             <span class="team-stats">
               Total: {{ team.totalSkill }} | Prom: {{ getSkillAverage(team) }}
             </span>
           </div>
-          
+
           <div class="formation-field">
             @if (team.goalkeeper) {
               <div class="formation-row goalkeeper-row">
@@ -40,12 +40,12 @@
                 </div>
               </div>
             }
-            
+
             <div class="formation-rows">
-              @for (player of getSortedPlayers(team.players); track player.id; let idx = $index) {
+              @for (player of getSortedPlayers(team.players, teamIdx === 1); track player.id; let idx = $index) {
                 @if (idx % 3 === 0) {
                   <div class="formation-row">
-                    @for (p of getRowPlayers(getSortedPlayers(team.players), idx); track p.id) {
+                    @for (p of getRowPlayers(getSortedPlayers(team.players, teamIdx === 1), idx); track p.id) {
                       <div class="player-avatar" [attr.data-position]="getPlayerPosition(p)">
                         <div class="avatar-circle">
                           <span class="player-initial">{{ getInitial(p.name) }}</span>
