@@ -31,7 +31,14 @@ export class PlayerService {
         }
       }
       
-      // Si tienen el mismo estado y timestamp, ordenar alfabéticamente
+      // Si ambos están deshabilitados o tienen el mismo lastToggled, ordenar por order
+      const aOrder = a.order ?? Number.MAX_SAFE_INTEGER;
+      const bOrder = b.order ?? Number.MAX_SAFE_INTEGER;
+      if (aOrder !== bOrder) {
+        return aOrder - bOrder;
+      }
+      
+      // Si tienen el mismo order, ordenar alfabéticamente
       return a.name.localeCompare(b.name);
     });
   });

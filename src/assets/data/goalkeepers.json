@@ -1,6 +1,6 @@
 [
   { "id": "gk1", "name": "Ivan", "skill": 4, "selected": true },
-  { "id": "gk2", "name": "Nelson", "skill": 4, "selected": true },
+  { "id": "gk2", "name": "Leo", "skill": 4, "selected": true },
   { "id": "gk3", "name": "gk3", "skill": 4, "selected": false },
   { "id": "gk4", "name": "gk4", "skill": 4, "selected": false }
 ]
