@@ -1,5 +1,5 @@
 [{ "id": "17", "name": "Edinson", "defense": 4, "creation": 2, "offense": 2, "enabled": true, "order": 1, "image": "https://raw.githubusercontent.com/jhonnnier/cli-futbol/refs/heads/master/src/assets/images/edinson_2.png" },
-  { "id": "2", "name": "Jhonnier", "defense": 4, "creation": 2, "offense": 1, "enabled": true, "order": 2, "image": "https://raw.githubusercontent.com/jhonnnier/cli-futbol/refs/heads/master/src/assets/images/jhonnier.png" },
+  { "id": "2", "name": "Jhonnier", "defense": 4, "creation": 2, "offense": 1, "enabled": true, "order": 2, "image": "https://raw.githubusercontent.com/jhonnnier/cli-futbol/refs/heads/master/src/assets/images/jhonnier_2.png" },
   { "id": "3", "name": "Goku", "defense": 4, "creation": 2, "offense": 2, "enabled": true, "order": 3, "image": "https://raw.githubusercontent.com/jhonnnier/cli-futbol/refs/heads/master/src/assets/images/goku.png" },
   { "id": "11", "name": "Jorge", "defense": 2, "creation": 2, "offense": 3, "enabled": true, "order": 4, "image": "https://raw.githubusercontent.com/jhonnnier/cli-futbol/refs/heads/master/src/assets/images/jorge_2.png" },
   { "id": "5", "name": "Wilson", "defense": 2, "creation": 2, "offense": 3, "enabled": true, "order": 5, "image": "https://raw.githubusercontent.com/jhonnnier/cli-futbol/refs/heads/master/src/assets/images/wilson.png" },
