@@ -178,10 +178,19 @@
     color: #fff;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
     transition: transform 0.3s;
+    overflow: hidden;
 
     &:hover { transform: scale(1.1); }
     .player-initial { font-size: 1.8rem; }
     .goalkeeper-icon { font-size: 2rem; }
+    
+    .player-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 60%;
+      border-radius: 50%;
+    }
   }
 
   .player-rating {

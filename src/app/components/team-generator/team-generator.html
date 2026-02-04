@@ -57,7 +57,11 @@
                     @for (p of getRowPlayers(getSortedPlayers(team.players, teamIdx === 1), idx); track p.id) {
                       <div class="player-avatar" [attr.data-position]="getPlayerPosition(p)">
                         <div class="avatar-circle">
-                          <span class="player-initial">{{ getInitial(p.name) }}</span>
+                          @if (p.image) {
+                            <img [src]="p.image" [alt]="p.name" class="player-image" />
+                          } @else {
+                            <span class="player-initial">{{ getInitial(p.name) }}</span>
+                          }
                         </div>
                         <div class="player-rating">{{ getPlayerSkill(p) }}</div>
                         <div class="player-info">
