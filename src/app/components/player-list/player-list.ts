@@ -33,4 +33,8 @@ export class PlayerList {
   getTotalSkill(player: Player): number {
     return this.playerService.getPlayerSkill(player);
   }
+
+  getEnabledIndex(player: Player): number {
+    return this.enabledPlayers().findIndex(p => p.id === player.id);
+  }
 }

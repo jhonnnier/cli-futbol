@@ -17,8 +17,22 @@ export class PlayerService {
   readonly players = computed(() => {
     const allPlayers = this.playersData();
     return [...allPlayers].sort((a, b) => {
-      if (a.enabled === b.enabled) return 0;
-      return a.enabled ? -1 : 1;
+      // Primero separar por enabled
+      if (a.enabled !== b.enabled) {
+        return a.enabled ? -1 : 1;
+      }
+      
+      // Si ambos están habilitados, ordenar por lastToggled (más reciente al final)
+      if (a.enabled && b.enabled) {
+        const aToggled = a.lastToggled || 0;
+        const bToggled = b.lastToggled || 0;
+        if (aToggled !== bToggled) {
+          return aToggled - bToggled;
+        }
+      }
+      
+      // Si tienen el mismo estado y timestamp, ordenar alfabéticamente
+      return a.name.localeCompare(b.name);
     });
   });
 
@@ -73,7 +87,7 @@ export class PlayerService {
 
   async togglePlayer(id: string): Promise<void> {
     this.playersData.update(players =>
-      players.map(p => p.id === id ? { ...p, enabled: !p.enabled } : p)
+      players.map(p => p.id === id ? { ...p, enabled: !p.enabled, lastToggled: Date.now() } : p)
     );
     await this.savePlayers();
   }

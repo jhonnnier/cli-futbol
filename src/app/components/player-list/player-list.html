@@ -15,6 +15,7 @@
       <table>
         <thead>
           <tr>
+            <th>#</th>
             <th></th>
             <th>Nombre</th>
             <th>Defensa</th>
@@ -25,12 +26,20 @@
           </tr>
         </thead>
         <tbody>
-          @for (player of players(); track player.id) {
-            <tr [class.disabled-row]="!player.enabled">
+          @for (player of players(); track player.id; let idx = $index) {
+            <tr 
+              [class.disabled-row]="!player.enabled"
+              [class.first-twelve]="player.enabled && getEnabledIndex(player) < 12"
+              [class.reserve-players]="player.enabled && getEnabledIndex(player) >= 12">
+              <td class="number-cell">
+                @if (player.enabled) {
+                  {{ getEnabledIndex(player) + 1 }}
+                }
+              </td>
               <td class="checkbox-cell">
                 <label class="checkbox-container">
-                  <input 
-                    type="checkbox" 
+                  <input
+                    type="checkbox"
                     [checked]="player.enabled"
                     (change)="togglePlayer(player.id)"
                   />

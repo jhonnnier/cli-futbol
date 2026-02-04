@@ -10,7 +10,7 @@
   { "id": "18", "name": "Fernando", "defense": 4, "creation": 2, "offense": 2, "enabled": true },
   { "id": "15", "name": "Willian", "defense": 1, "creation": 2, "offense": 2, "enabled": true },
   { "id": "6", "name": "Lucho", "defense": 2, "creation": 2, "offense": 3, "enabled": true },
-  { "id": "15", "name": "Quiira", "defense": 2, "creation": 2, "offense": 3, "enabled": false },
+  { "id": "19", "name": "Quiira", "defense": 2, "creation": 2, "offense": 3, "enabled": false },
   { "id": "12", "name": "Ronal", "defense": 2, "creation": 2, "offense": 2, "enabled": false },
   { "id": "7", "name": "Camilo", "defense": 2, "creation": 3, "offense": 2, "enabled": false },
   { "id": "8", "name": "Sergio", "defense": 2, "creation": 3, "offense": 3, "enabled": false },

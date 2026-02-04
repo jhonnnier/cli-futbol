@@ -5,6 +5,7 @@ export interface Player {
   creation: number; // 1-5 estrellas
   offense: number;  // 1-5 estrellas
   enabled: boolean;
+  lastToggled?: number; // timestamp de la última vez que se cambió enabled
 }
 
 export interface Goalkeeper {
