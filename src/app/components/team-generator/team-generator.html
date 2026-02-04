@@ -40,7 +40,11 @@
               <div class="formation-row goalkeeper-row">
                 <div class="player-avatar goalkeeper">
                   <div class="avatar-circle">
-                    <span class="goalkeeper-icon">🧤</span>
+                    @if (team.goalkeeper.image) {
+                      <img [src]="team.goalkeeper.image" [alt]="team.goalkeeper.name" class="player-image" />
+                    } @else {
+                      <span class="goalkeeper-icon">🧤</span>
+                    }
                   </div>
                   <div class="player-rating goalkeeper-rating">{{ team.goalkeeper.skill }}</div>
                   <div class="player-info">

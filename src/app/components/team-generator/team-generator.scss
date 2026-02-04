@@ -109,12 +109,15 @@
   }
 
   .formation-field {
+    display: flex;
+    flex-direction: column;
     background: linear-gradient(180deg, rgba(34, 139, 34, 0.3), rgba(34, 139, 34, 0.1));
     padding: 2rem 1rem;
     min-height: 400px;
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
+  }
+
+  .team-two .formation-field {
+    flex-direction: column-reverse;
   }
 
   .formation-rows {

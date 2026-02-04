@@ -15,6 +15,7 @@ export interface Goalkeeper {
   name: string;
   skill: number; // 1-5 estrellas
   selected: boolean;
+  image?: string; // URL o ruta de la imagen del arquero
 }
 
 export interface Team {
