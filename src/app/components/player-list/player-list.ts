@@ -15,19 +15,19 @@ export class PlayerList {
   readonly enabledPlayers = this.playerService.enabledPlayers;
   readonly disabledPlayers = this.playerService.disabledPlayers;
 
-  updateSkill(player: Player, skill: 'defense' | 'creation' | 'offense', value: number): void {
-    this.playerService.updatePlayer({
+  async updateSkill(player: Player, skill: 'defense' | 'creation' | 'offense', value: number): Promise<void> {
+    await this.playerService.updatePlayer({
       ...player,
       [skill]: value
     });
   }
 
-  deletePlayer(id: string): void {
-    this.playerService.deletePlayer(id);
+  async deletePlayer(id: string): Promise<void> {
+    await this.playerService.deletePlayer(id);
   }
 
-  togglePlayer(id: string): void {
-    this.playerService.togglePlayer(id);
+  async togglePlayer(id: string): Promise<void> {
+    await this.playerService.togglePlayer(id);
   }
 
   getTotalSkill(player: Player): number {

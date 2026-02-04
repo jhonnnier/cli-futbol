@@ -2,6 +2,7 @@ import { Injectable, signal, inject, computed } from '@angular/core';
 import { Player, Team } from '../models/player.model';
 import playersData from '../../assets/data/players.json';
 import { GoalkeeperService } from './goalkeeper.service';
+import { FirebaseService } from './firebase.service';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +10,9 @@ import { GoalkeeperService } from './goalkeeper.service';
 export class PlayerService {
   private readonly storageKey = 'futbol-players';
   private readonly goalkeeperService = inject(GoalkeeperService);
+  private readonly firebaseService = inject(FirebaseService);
   private readonly playersData = signal<Player[]>(playersData);
+  private isInitialized = false;
   
   readonly players = computed(() => {
     const allPlayers = this.playersData();
@@ -28,37 +31,63 @@ export class PlayerService {
   readonly enabledPlayers = () => this.players().filter(p => p.enabled);
   readonly disabledPlayers = () => this.players().filter(p => !p.enabled);
 
-  private savePlayers(): void {
-    localStorage.setItem(this.storageKey, JSON.stringify(this.playersData()));
+  async initializePlayers(): Promise<void> {
+    if (this.isInitialized) return;
+    
+    try {
+      const firebasePlayers = await this.firebaseService.getPlayers();
+      if (firebasePlayers.length > 0) {
+        this.playersData.set(firebasePlayers);
+      } else {
+        await this.firebaseService.savePlayers(playersData);
+      }
+      this.isInitialized = true;
+    } catch (error) {
+      console.error('Error loading players from Firebase:', error);
+      const localPlayers = localStorage.getItem(this.storageKey);
+      if (localPlayers) {
+        this.playersData.set(JSON.parse(localPlayers));
+      }
+      this.isInitialized = true;
+    }
   }
 
-  addPlayer(player: Omit<Player, 'id' | 'enabled'>): void {
+  private async savePlayers(): Promise<void> {
+    localStorage.setItem(this.storageKey, JSON.stringify(this.playersData()));
+    try {
+      await this.firebaseService.savePlayers(this.playersData());
+    } catch (error) {
+      console.error('Error saving players to Firebase:', error);
+    }
+  }
+
+  async addPlayer(player: Omit<Player, 'id' | 'enabled'>): Promise<void> {
     const newPlayer: Player = {
       ...player,
       id: crypto.randomUUID(),
       enabled: true
     };
     this.playersData.update(players => [...players, newPlayer]);
-    this.savePlayers();
+    await this.savePlayers();
   }
 
-  togglePlayer(id: string): void {
+  async togglePlayer(id: string): Promise<void> {
     this.playersData.update(players =>
       players.map(p => p.id === id ? { ...p, enabled: !p.enabled } : p)
     );
-    this.savePlayers();
+    await this.savePlayers();
   }
 
-  updatePlayer(updatedPlayer: Player): void {
+  async updatePlayer(updatedPlayer: Player): Promise<void> {
     this.playersData.update(players =>
       players.map(p => p.id === updatedPlayer.id ? updatedPlayer : p)
     );
-    this.savePlayers();
+    await this.savePlayers();
   }
 
-  deletePlayer(id: string): void {
+  async deletePlayer(id: string): Promise<void> {
     this.playersData.update(players => players.filter(p => p.id !== id));
-    this.savePlayers();
+    await this.savePlayers();
   }
 
   getPlayerSkill(player: Player): number {

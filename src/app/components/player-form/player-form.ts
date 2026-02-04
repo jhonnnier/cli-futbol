@@ -17,9 +17,9 @@ export class PlayerForm {
   readonly creation = signal(3);
   readonly offense = signal(3);
 
-  addPlayer(): void {
+  async addPlayer(): Promise<void> {
     if (this.name().trim()) {
-      this.playerService.addPlayer({
+      await this.playerService.addPlayer({
         name: this.name().trim(),
         defense: this.defense(),
         creation: this.creation(),

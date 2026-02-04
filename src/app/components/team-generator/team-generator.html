@@ -25,23 +25,51 @@
               Total: {{ team.totalSkill }} | Prom: {{ getSkillAverage(team) }}
             </span>
           </div>
-          @if (team.goalkeeper) {
-            <div class="team-goalkeeper">
-              <span class="goalkeeper-icon">🧤</span>
-              <span class="goalkeeper-name">{{ team.goalkeeper.name }}</span>
-              <span class="goalkeeper-skill">⭐{{ team.goalkeeper.skill }}</span>
-            </div>
-          }
-          <ul class="team-players">
-            @for (player of team.players; track player.id) {
-              <li>
-                <span class="player-name">{{ player.name }}</span>
-                <span class="player-skill">
-                  ⚔️{{ player.offense }} 🎯{{ player.creation }} 🛡️{{ player.defense }}
-                </span>
-              </li>
+          
+          <div class="formation-field">
+            @if (team.goalkeeper) {
+              <div class="formation-row goalkeeper-row">
+                <div class="player-avatar goalkeeper">
+                  <div class="avatar-circle">
+                    <span class="goalkeeper-icon">🧤</span>
+                  </div>
+                  <div class="player-rating goalkeeper-rating">{{ team.goalkeeper.skill }}</div>
+                  <div class="player-info">
+                    <div class="player-name">{{ team.goalkeeper.name }}</div>
+                  </div>
+                </div>
+              </div>
             }
-          </ul>
+            
+            <div class="formation-rows">
+              @for (player of getSortedPlayers(team.players); track player.id; let idx = $index) {
+                @if (idx % 3 === 0) {
+                  <div class="formation-row">
+                    @for (p of getRowPlayers(getSortedPlayers(team.players), idx); track p.id) {
+                      <div class="player-avatar" [attr.data-position]="getPlayerPosition(p)">
+                        <div class="avatar-circle">
+                          <span class="player-initial">{{ getInitial(p.name) }}</span>
+                        </div>
+                        <div class="player-rating">{{ getPlayerSkill(p) }}</div>
+                        <div class="player-info">
+                          <div class="player-name">{{ p.name }}</div>
+                          <div class="player-position">
+                            @if (getPlayerPosition(p) === 'defense') {
+                              🛡️
+                            } @else if (getPlayerPosition(p) === 'creation') {
+                              🎯
+                            } @else {
+                              ⚔️
+                            }
+                          </div>
+                        </div>
+                      </div>
+                    }
+                  </div>
+                }
+              }
+            </div>
+          </div>
         </div>
       }
     </div>
