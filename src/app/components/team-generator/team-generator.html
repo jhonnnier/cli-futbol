@@ -25,17 +25,18 @@
   }
 
   @if (teams().length > 0) {
-    <div id="teams-section" class="teams-grid">
-      @for (team of teams(); track team.name; let teamIdx = $index) {
-        <div class="team-card" [class.team-two]="teamIdx === 1">
-          <div class="team-header">
-            <h3>{{ team.name }}</h3>
-            <span class="team-stats">
-              Total: {{ team.totalSkill }} | Prom: {{ getSkillAverage(team) }}
-            </span>
-          </div>
+    <div id="teams-section" class="teams-container">
+      <div class="teams-field">
+        @for (team of teams(); track team.name; let teamIdx = $index) {
+          <div class="team-section" [class.team-two]="teamIdx === 1">
+            <div class="team-header">
+              <h3>{{ team.name }}</h3>
+              <span class="team-stats">
+                Total: {{ team.totalSkill }} | Prom: {{ getSkillAverage(team) }}
+              </span>
+            </div>
 
-          <div class="formation-field">
+            <div class="formation-field">
             @if (team.goalkeeper) {
               <div class="formation-row goalkeeper-row">
                 <div class="player-avatar goalkeeper">
@@ -88,7 +89,8 @@
             </div>
           </div>
         </div>
-      }
+        }
+      </div>
     </div>
   }
 </div>
