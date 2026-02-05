@@ -13,12 +13,52 @@
     }
   }
 
+  .title-section {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+
+    @media (max-width: 768px) {
+      gap: 0.75rem;
+    }
+  }
+
   h2 {
     color: #00d4ff;
     margin: 0;
 
     @media (max-width: 768px) {
       font-size: 1.5rem;
+    }
+  }
+
+  .btn-add-player {
+    background: linear-gradient(90deg, #00d4ff, #7b2cbf);
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 1.2rem;
+    transition: all 0.3s;
+    box-shadow: 0 4px 15px rgba(0, 212, 255, 0.3);
+
+    @media (max-width: 768px) {
+      width: 36px;
+      height: 36px;
+      font-size: 1rem;
+    }
+
+    &:hover {
+      transform: scale(1.1);
+      box-shadow: 0 6px 20px rgba(0, 212, 255, 0.5);
+    }
+
+    &:active {
+      transform: scale(0.95);
     }
   }
 
@@ -119,6 +159,29 @@
 
     .total-skill {
       color: rgba(255, 193, 7, 0.6);
+    }
+  }
+
+  .goalkeeper-row {
+    background-color: rgba(0, 212, 255, 0.15) !important;
+    font-weight: 500;
+
+    &:hover {
+      background-color: rgba(0, 212, 255, 0.25) !important;
+    }
+
+    .player-name {
+      color: #00d4ff;
+      font-weight: 600;
+    }
+  }
+
+  .goalkeeper-badge {
+    font-size: 1.5rem;
+    display: inline-block;
+
+    @media (max-width: 768px) {
+      font-size: 1.3rem;
     }
   }
 
@@ -262,6 +325,95 @@
     &:hover {
       background: rgba(255, 82, 82, 0.4);
       transform: scale(1.1);
+    }
+  }
+
+  .modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    padding: 1rem;
+    animation: fadeIn 0.3s ease-in-out;
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+  }
+
+  .modal-content {
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+    border-radius: 16px;
+    padding: 2rem;
+    max-width: 500px;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+    position: relative;
+    box-shadow: 0 10px 40px rgba(0, 212, 255, 0.3);
+    border: 1px solid rgba(0, 212, 255, 0.2);
+    animation: slideIn 0.3s ease-in-out;
+
+    @media (max-width: 768px) {
+      padding: 1.5rem;
+      max-width: 100%;
+    }
+
+    @keyframes slideIn {
+      from {
+        transform: translateY(-50px);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+  }
+
+  .btn-close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 1.2rem;
+    color: rgba(255, 255, 255, 0.8);
+    transition: all 0.3s;
+
+    @media (max-width: 768px) {
+      width: 28px;
+      height: 28px;
+      font-size: 1rem;
+    }
+
+    &:hover {
+      background: rgba(255, 82, 82, 0.3);
+      border-color: rgba(255, 82, 82, 0.5);
+      color: #fff;
+      transform: rotate(90deg);
+    }
+
+    &:active {
+      transform: rotate(90deg) scale(0.9);
     }
   }
 }

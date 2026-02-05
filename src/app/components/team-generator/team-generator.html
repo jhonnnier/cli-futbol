@@ -12,6 +12,14 @@
   </div>
 
   <button
+    class="btn-floating btn-floating-top"
+    (click)="scrollToPlayers()"
+    title="Ir a lista de jugadores"
+  >
+    🏃
+  </button>
+
+  <button
     class="btn-floating"
     (click)="generateTeamsAndScroll()"
     [disabled]="players().length < 2"

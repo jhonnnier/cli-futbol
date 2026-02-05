@@ -33,6 +33,17 @@ export class TeamGenerator {
     }, 100);
   }
 
+  scrollToPlayers(): void {
+    const element = document.getElementById('players');
+    if (element) {
+      const elementPosition = element.getBoundingClientRect().top + window.scrollY;
+      window.scrollTo({
+        top: elementPosition - 80,
+        behavior: 'smooth'
+      });
+    }
+  }
+
   getSkillAverage(team: Team): number {
     if (team.players.length === 0) return 0;
     return Math.round((team.totalSkill / team.players.length) * 10) / 10;
