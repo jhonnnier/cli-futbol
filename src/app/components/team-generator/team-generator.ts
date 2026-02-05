@@ -26,7 +26,7 @@ export class TeamGenerator {
       if (element) {
         const elementPosition = element.getBoundingClientRect().top + window.scrollY;
         window.scrollTo({
-          top: elementPosition - 50,
+          top: elementPosition,
           behavior: 'smooth'
         });
       }
