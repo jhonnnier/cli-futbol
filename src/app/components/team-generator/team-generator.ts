@@ -24,7 +24,11 @@ export class TeamGenerator {
     setTimeout(() => {
       const element = document.getElementById('teams-section');
       if (element) {
-        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        const elementPosition = element.getBoundingClientRect().top + window.scrollY;
+        window.scrollTo({
+          top: elementPosition - 50,
+          behavior: 'smooth'
+        });
       }
     }, 100);
   }
@@ -54,7 +58,7 @@ export class TeamGenerator {
 
   getSortedPlayers(players: Player[], reverseOrder: boolean = false): Player[] {
     return [...players].sort((a, b) => {
-      const posOrder = reverseOrder 
+      const posOrder = reverseOrder
         ? { offense: 0, creation: 1, defense: 2 }
         : { defense: 0, creation: 1, offense: 2 };
       const posA = this.getPlayerPosition(a);
