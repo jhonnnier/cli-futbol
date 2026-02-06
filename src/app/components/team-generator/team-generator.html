@@ -35,7 +35,7 @@
   @if (teams().length > 0) {
     <div id="teams-section" class="teams-container">
       <div class="teams-field">
-        @for (team of teams(); track team.name; let teamIdx = $index) {
+        @for (team of teams(); track team.generationId + '-' + team.name; let teamIdx = $index) {
           <div class="team-section" [class.team-two]="teamIdx === 1">
             <div class="team-header">
               <h3>{{ team.name }}</h3>
@@ -47,7 +47,7 @@
             <div class="formation-field">
             @if (team.goalkeeper) {
               <div class="formation-row goalkeeper-row">
-                <div class="player-avatar goalkeeper">
+                <div class="player-avatar goalkeeper" [attr.data-team]="teamIdx">
                   <div class="avatar-circle">
                     @if (team.goalkeeper.image) {
                       <img [src]="team.goalkeeper.image" [alt]="team.goalkeeper.name" class="player-image" />

@@ -81,4 +81,8 @@ export class TeamGenerator {
   getRowPlayers(players: Player[], startIdx: number): Player[] {
     return players.slice(startIdx, startIdx + 3);
   }
+
+  trackByTeamPlayer(teamIdx: number, player: Player): string {
+    return `${teamIdx}-${player.id}`;
+  }
 }

@@ -152,10 +152,11 @@ export class PlayerService {
   }
 
   private tryGenerateTeams(allPlayers: Player[]): Team[] {
+    const generationId = Date.now().toString();
     // Crear exactamente 2 equipos con estadísticas detalladas
     const teams: Team[] = [
-      { name: 'Equipo 1', players: [], totalSkill: 0 },
-      { name: 'Equipo 2', players: [], totalSkill: 0 }
+      { name: 'Equipo 1', players: [], totalSkill: 0, generationId },
+      { name: 'Equipo 2', players: [], totalSkill: 0, generationId }
     ];
 
     const teamStats = [

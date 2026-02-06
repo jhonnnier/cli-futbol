@@ -23,4 +23,5 @@ export interface Team {
   players: Player[];
   goalkeeper?: Goalkeeper;
   totalSkill: number;
+  generationId?: string;
 }
