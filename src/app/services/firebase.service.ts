@@ -25,24 +25,36 @@ export class FirebaseService {
 
   async savePlayer(player: Player): Promise<void> {
     const playerRef = doc(this.db, this.playersCollection, player.id);
-    await setDoc(playerRef, {
+    const playerData: any = {
       name: player.name,
       defense: player.defense,
       creation: player.creation,
       offense: player.offense,
       enabled: player.enabled
-    });
+    };
+    
+    if (player.image) playerData.image = player.image;
+    if (player.order !== undefined) playerData.order = player.order;
+    if (player.lastToggled !== undefined) playerData.lastToggled = player.lastToggled;
+    
+    await setDoc(playerRef, playerData);
   }
 
   async updatePlayer(player: Player): Promise<void> {
     const playerRef = doc(this.db, this.playersCollection, player.id);
-    await updateDoc(playerRef, {
+    const playerData: any = {
       name: player.name,
       defense: player.defense,
       creation: player.creation,
       offense: player.offense,
       enabled: player.enabled
-    });
+    };
+    
+    if (player.image) playerData.image = player.image;
+    if (player.order !== undefined) playerData.order = player.order;
+    if (player.lastToggled !== undefined) playerData.lastToggled = player.lastToggled;
+    
+    await updateDoc(playerRef, playerData);
   }
 
   async deletePlayer(id: string): Promise<void> {

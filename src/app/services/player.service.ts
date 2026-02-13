@@ -13,7 +13,7 @@ export class PlayerService {
   private readonly firebaseService = inject(FirebaseService);
   private readonly playersData = signal<Player[]>(playersData);
   private isInitialized = false;
-  
+
   readonly players = computed(() => {
     const allPlayers = this.playersData();
     return [...allPlayers].sort((a, b) => {
@@ -21,7 +21,7 @@ export class PlayerService {
       if (a.enabled !== b.enabled) {
         return a.enabled ? -1 : 1;
       }
-      
+
       // Si ambos están habilitados, ordenar por lastToggled (más reciente al final)
       if (a.enabled && b.enabled) {
         const aToggled = a.lastToggled || 0;
@@ -30,23 +30,29 @@ export class PlayerService {
           return aToggled - bToggled;
         }
       }
-      
+
       // Si ambos están deshabilitados o tienen el mismo lastToggled, ordenar por order
       const aOrder = a.order ?? Number.MAX_SAFE_INTEGER;
       const bOrder = b.order ?? Number.MAX_SAFE_INTEGER;
       if (aOrder !== bOrder) {
         return aOrder - bOrder;
       }
-      
+
       // Si tienen el mismo order, ordenar alfabéticamente
       return a.name.localeCompare(b.name);
     });
   });
 
+  camilo: string = '7';
+  jhonatan: string = '4';
+  edinson: string = '17';
+  jorge: string = '11';
+  sergio: string = '8';
+
   // Lista de pares de IDs de jugadores que no pueden estar en el mismo equipo
   // Ejemplo: [['6', '12'], ['3', '4']] significa que 1 y 2 no pueden estar juntos, ni 3 y 4
   private readonly separatedPairs: [string, string][] = [
-    ['11', '4']
+    [this.jhonatan, this.jorge], [this.edinson, this.camilo], [this.sergio, this.camilo]
   ];
 
   readonly enabledPlayers = () => this.players().filter(p => p.enabled);
@@ -54,13 +60,28 @@ export class PlayerService {
 
   async initializePlayers(): Promise<void> {
     if (this.isInitialized) return;
-    
+
     try {
       const firebasePlayers = await this.firebaseService.getPlayers();
       if (firebasePlayers.length > 0) {
-        this.playersData.set(firebasePlayers);
+        // Fusionar datos de Firebase con datos del JSON para preservar propiedades como image
+        const mergedPlayers = firebasePlayers.map(fbPlayer => {
+          const jsonPlayer = playersData.find(p => p.id === fbPlayer.id);
+          if (jsonPlayer) {
+            return {
+              ...fbPlayer,
+              ...(jsonPlayer.image && !fbPlayer.image && { image: jsonPlayer.image }),
+              ...(jsonPlayer.order !== undefined && fbPlayer.order === undefined && { order: jsonPlayer.order })
+            };
+          }
+          return fbPlayer;
+        });
+        this.playersData.set(mergedPlayers);
+        // Guardar los datos fusionados de vuelta a Firebase
+        await this.firebaseService.savePlayers(mergedPlayers);
       } else {
         await this.firebaseService.savePlayers(playersData);
+        this.playersData.set(playersData);
       }
       this.isInitialized = true;
     } catch (error) {
@@ -68,6 +89,8 @@ export class PlayerService {
       const localPlayers = localStorage.getItem(this.storageKey);
       if (localPlayers) {
         this.playersData.set(JSON.parse(localPlayers));
+      } else {
+        this.playersData.set(playersData);
       }
       this.isInitialized = true;
     }
@@ -140,7 +163,7 @@ export class PlayerService {
 
   private distributeGoalkeepers(teams: Team[]): void {
     const selectedGoalkeepers = this.goalkeeperService.selectedGoalkeepers();
-    
+
     if (selectedGoalkeepers.length === 2 && teams.length === 2) {
       // Asignar un arquero a cada equipo
       teams[0].goalkeeper = selectedGoalkeepers[0];
@@ -258,7 +281,7 @@ export class PlayerService {
     const defDiff = Math.abs(def1 - def2);
     const creDiff = Math.abs(cre1 - cre2);
     const offDiff = Math.abs(off1 - off2);
-    
+
     // Retornar la suma de diferencias (menor es mejor)
     return defDiff + creDiff + offDiff;
   }

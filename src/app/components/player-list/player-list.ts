@@ -28,10 +28,18 @@ export class PlayerList {
   });
 
   async updateSkill(player: Player, skill: 'defense' | 'creation' | 'offense', value: number): Promise<void> {
-    await this.playerService.updatePlayer({
-      ...player,
-      [skill]: value
-    });
+    const updatedPlayer: Player = {
+      id: player.id,
+      name: player.name,
+      defense: skill === 'defense' ? value : player.defense,
+      creation: skill === 'creation' ? value : player.creation,
+      offense: skill === 'offense' ? value : player.offense,
+      enabled: player.enabled,
+      ...(player.lastToggled !== undefined && { lastToggled: player.lastToggled }),
+      ...(player.order !== undefined && { order: player.order }),
+      ...(player.image && { image: player.image })
+    };
+    await this.playerService.updatePlayer(updatedPlayer);
   }
 
   async deletePlayer(id: string): Promise<void> {
