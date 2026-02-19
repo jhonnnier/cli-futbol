@@ -52,7 +52,7 @@ export class PlayerService {
   // Lista de pares de IDs de jugadores que no pueden estar en el mismo equipo
   // Ejemplo: [['6', '12'], ['3', '4']] significa que 1 y 2 no pueden estar juntos, ni 3 y 4
   private readonly separatedPairs: [string, string][] = [
-    [this.jhonatan, this.jorge], [this.edinson, this.camilo], [this.sergio, this.camilo]
+    [this.jhonatan, this.jorge], [this.edinson, this.camilo]
   ];
 
   readonly enabledPlayers = () => this.players().filter(p => p.enabled);
