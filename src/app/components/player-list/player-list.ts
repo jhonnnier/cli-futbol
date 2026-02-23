@@ -1,4 +1,5 @@
 import { Component, inject, signal, computed } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { PlayerService } from '../../services/player.service';
 import { GoalkeeperService } from '../../services/goalkeeper.service';
 import { StarRating } from '../star-rating/star-rating';
@@ -14,12 +15,24 @@ import { PlayerForm } from '../player-form/player-form';
 export class PlayerList {
   private readonly playerService = inject(PlayerService);
   private readonly goalkeeperService = inject(GoalkeeperService);
+  private readonly route = inject(ActivatedRoute);
   readonly players = this.playerService.players;
   readonly enabledPlayers = this.playerService.enabledPlayers;
   readonly disabledPlayers = this.playerService.disabledPlayers;
   readonly showModal = signal(false);
+  readonly canEditRatings = signal(false);
   
   readonly selectedGoalkeepers = this.goalkeeperService.selectedGoalkeepers;
+  
+  readonly totalEnabledPlayers = computed(() => {
+    return this.enabledPlayers().length + this.selectedGoalkeepers().length;
+  });
+  
+  constructor() {
+    this.route.queryParams.subscribe(params => {
+      this.canEditRatings.set(params['edit'] !== undefined);
+    });
+  }
   
   readonly allPlayersWithGoalkeepers = computed(() => {
     const goalkeepers = this.selectedGoalkeepers();

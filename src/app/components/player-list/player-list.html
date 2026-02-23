@@ -8,8 +8,8 @@
     </div>
     <div class="counter">
       <span class="counter-label">Habilitados:</span>
-      <span class="counter-value">{{ enabledPlayers().length }}</span>
-      <span class="counter-total">/ {{ players().length }}</span>
+      <span class="counter-value">{{ totalEnabledPlayers() }}</span>
+      <span class="counter-total">/ {{ players().length + selectedGoalkeepers().length }}</span>
     </div>
   </div>
 
@@ -68,21 +68,21 @@
                 <td>
                   <app-star-rating
                     [value]="player.defense"
-                    [readonly]="!player.enabled"
+                    [readonly]="!canEditRatings()"
                     (valueChange)="updateSkill(player, 'defense', $event)"
                   />
                 </td>
                 <td>
                   <app-star-rating
                     [value]="player.creation"
-                    [readonly]="!player.enabled"
+                    [readonly]="!canEditRatings()"
                     (valueChange)="updateSkill(player, 'creation', $event)"
                   />
                 </td>
                 <td>
                   <app-star-rating
                     [value]="player.offense"
-                    [readonly]="!player.enabled"
+                    [readonly]="!canEditRatings()"
                     (valueChange)="updateSkill(player, 'offense', $event)"
                   />
                 </td>

@@ -165,9 +165,10 @@ export class PlayerService {
     const selectedGoalkeepers = this.goalkeeperService.selectedGoalkeepers();
 
     if (selectedGoalkeepers.length === 2 && teams.length === 2) {
-      // Asignar un arquero a cada equipo
-      teams[0].goalkeeper = selectedGoalkeepers[0];
-      teams[1].goalkeeper = selectedGoalkeepers[1];
+      // Mezclar arqueros aleatoriamente antes de asignar
+      const shuffledGoalkeepers = this.shuffleArray(selectedGoalkeepers);
+      teams[0].goalkeeper = shuffledGoalkeepers[0];
+      teams[1].goalkeeper = shuffledGoalkeepers[1];
     } else if (selectedGoalkeepers.length === 1 && teams.length >= 1) {
       // Si solo hay un arquero, asignarlo al primer equipo
       teams[0].goalkeeper = selectedGoalkeepers[0];
