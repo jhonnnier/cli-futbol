@@ -1,8 +1,9 @@
 .landing {
   min-height: 100vh;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+  background: transparent;
   color: #fff;
+  position: relative;
 
   &__header {
     position: fixed;
@@ -10,9 +11,9 @@
     left: 0;
     right: 0;
     z-index: 100;
-    background: rgba(26, 26, 46, 0.95);
+    background: rgba(15, 61, 31, 0.95);
     backdrop-filter: blur(10px);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    border-bottom: 2px solid rgba(255, 255, 255, 0.2);
     transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
 
     &--hidden {
@@ -50,7 +51,7 @@
     }
 
     &-text {
-      background: linear-gradient(90deg, #00d4ff, #7b2cbf);
+      background: linear-gradient(90deg, #90EE90, #FFD700);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
@@ -73,7 +74,7 @@
       color: #fff;
       text-decoration: none;
       transition: color 0.3s;
-      &:hover { color: #00d4ff; }
+      &:hover { color: #90EE90; }
     }
   }
 
@@ -120,7 +121,7 @@
   }
 
   &__highlight {
-    background: linear-gradient(90deg, #00d4ff, #7b2cbf);
+    background: linear-gradient(90deg, #90EE90, #FFD700);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -153,17 +154,17 @@
     &:hover { transform: translateY(-2px); }
 
     &--primary {
-      background: linear-gradient(90deg, #00d4ff, #7b2cbf);
+      background: linear-gradient(90deg, #228B22, #32CD32);
       color: #fff;
-      box-shadow: 0 4px 20px rgba(0, 212, 255, 0.4);
-      &:hover { box-shadow: 0 6px 30px rgba(0, 212, 255, 0.6); }
+      box-shadow: 0 4px 20px rgba(34, 139, 34, 0.5);
+      &:hover { box-shadow: 0 6px 30px rgba(50, 205, 50, 0.7); }
     }
 
     &--secondary {
       background: transparent;
       color: #fff;
       border: 2px solid rgba(255, 255, 255, 0.3);
-      &:hover { border-color: #00d4ff; color: #00d4ff; }
+      &:hover { border-color: #90EE90; color: #90EE90; }
     }
   }
 
@@ -176,7 +177,7 @@
     text-align: center;
     font-size: 2.5rem;
     margin-bottom: 3rem;
-    background: linear-gradient(90deg, #00d4ff, #7b2cbf);
+    background: linear-gradient(90deg, #90EE90, #FFD700);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;

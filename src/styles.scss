@@ -15,6 +15,34 @@ body {
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background: linear-gradient(135deg, 
+    #1a4d2e 0%, 
+    #0f3d1f 25%, 
+    #1a5d35 50%, 
+    #0f3d1f 75%, 
+    #1a4d2e 100%
+  );
+  background-attachment: fixed;
+  position: relative;
+  
+  &::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: 
+      repeating-linear-gradient(
+        90deg,
+        transparent,
+        transparent 49px,
+        rgba(255, 255, 255, 0.03) 49px,
+        rgba(255, 255, 255, 0.03) 50px
+      );
+    pointer-events: none;
+    z-index: 0;
+  }
 }
 
 @media (max-width: 768px) {

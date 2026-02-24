@@ -1,6 +1,6 @@
 .team-generator {
   h2 {
-    color: #00d4ff;
+    color: #90EE90;
     margin-bottom: 1.5rem;
   }
 
@@ -34,14 +34,14 @@
 
     &:focus {
       outline: none;
-      border-color: #00d4ff;
-      box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.2);
+      border-color: #90EE90;
+      box-shadow: 0 0 0 3px rgba(144, 238, 144, 0.3);
     }
   }
 
   .btn-generate {
     padding: 0.75rem 2rem;
-    background: linear-gradient(90deg, #7b2cbf, #00d4ff);
+    background: linear-gradient(90deg, #228B22, #32CD32);
     border: none;
     border-radius: 8px;
     color: #fff;
@@ -52,7 +52,7 @@
 
     &:hover:not(:disabled) {
       transform: translateY(-2px);
-      box-shadow: 0 4px 20px rgba(123, 44, 191, 0.4);
+      box-shadow: 0 4px 20px rgba(34, 139, 34, 0.5);
     }
 
     &:disabled {
@@ -70,8 +70,8 @@
   }
 
   .teams-container {
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(0, 0, 0, 0.3);
+    border: 2px solid rgba(144, 238, 144, 0.3);
     border-radius: 12px;
     overflow: hidden;
   }
@@ -79,12 +79,21 @@
   .teams-field {
     display: flex;
     flex-direction: column;
-    background: linear-gradient(180deg,
-      rgba(34, 139, 34, 0.4) 0%,
-      rgba(34, 139, 34, 0.3) 50%,
-      rgba(34, 139, 34, 0.4) 100%
-    );
+    background: 
+      repeating-linear-gradient(
+        0deg,
+        rgba(34, 139, 34, 0.5) 0px,
+        rgba(34, 139, 34, 0.5) 40px,
+        rgba(50, 205, 50, 0.3) 40px,
+        rgba(50, 205, 50, 0.3) 80px
+      ),
+      linear-gradient(180deg,
+        rgba(26, 77, 46, 0.8) 0%,
+        rgba(15, 61, 31, 0.9) 50%,
+        rgba(26, 77, 46, 0.8) 100%
+      );
     position: relative;
+    box-shadow: inset 0 0 100px rgba(0, 0, 0, 0.3);
 
     // Línea central de la cancha
     &::before {
@@ -156,11 +165,12 @@
   }
 
   .team-header {
-    background: linear-gradient(90deg, rgba(0, 212, 255, 0.2), rgba(123, 44, 191, 0.2));
+    background: linear-gradient(90deg, rgba(34, 139, 34, 0.3), rgba(50, 205, 50, 0.2));
     padding: 1rem 1.25rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    border-bottom: 2px solid rgba(144, 238, 144, 0.2);
 
     h3 {
       margin: 0;
@@ -170,7 +180,7 @@
 
     .team-stats {
       font-size: 0.85rem;
-      color: #ffc107;
+      color: #FFD700;
       font-weight: 500;
     }
   }
@@ -211,26 +221,26 @@
     position: relative;
 
     &.goalkeeper .avatar-circle {
-      background: linear-gradient(135deg, #00d4ff, #0099cc);
-      border-color: #00d4ff;
+      background: linear-gradient(135deg, #FFD700, #FFA500);
+      border-color: #FFD700;
     }
 
     &[data-position="defense"] .avatar-circle,
     &[data-position="defense"] .player-rating {
-      background: linear-gradient(135deg, #4a90e2, #357abd);
-      border-color: #4a90e2;
+      background: linear-gradient(135deg, #1E90FF, #4169E1);
+      border-color: #1E90FF;
     }
 
     &[data-position="creation"] .avatar-circle,
     &[data-position="creation"] .player-rating {
-      background: linear-gradient(135deg, #50c878, #3da35d);
-      border-color: #50c878;
+      background: linear-gradient(135deg, #32CD32, #228B22);
+      border-color: #32CD32;
     }
 
     &[data-position="offense"] .avatar-circle,
     &[data-position="offense"] .player-rating {
-      background: linear-gradient(135deg, #ff6b6b, #ee5a6f);
-      border-color: #ff6b6b;
+      background: linear-gradient(135deg, #DC143C, #B22222);
+      border-color: #DC143C;
     }
   }
 
@@ -238,8 +248,8 @@
     width: 70px;
     height: 70px;
     border-radius: 50%;
-    background: linear-gradient(135deg, #ff6b6b, #ee5a6f);
-    border: 3px solid rgba(255, 255, 255, 0.3);
+    background: linear-gradient(135deg, #DC143C, #B22222);
+    border: 3px solid rgba(255, 255, 255, 0.4);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -267,7 +277,7 @@
     position: absolute;
     top: -5px;
     right: -5px;
-    background: #ff6b6b;
+    background: #DC143C;
     color: #fff;
     font-weight: bold;
     font-size: 0.9rem;
@@ -277,7 +287,7 @@
     text-align: center;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
 
-    &.goalkeeper-rating { background: #00d4ff; }
+    &.goalkeeper-rating { background: #FFD700; color: #000; }
   }
 
   .player-info {
@@ -309,18 +319,18 @@
     width: 60px;
     height: 60px;
     border-radius: 50%;
-    background: linear-gradient(135deg, #7b2cbf, #00d4ff);
+    background: linear-gradient(135deg, #228B22, #32CD32);
     border: none;
     color: #fff;
     font-size: 2rem;
-    box-shadow: 0 4px 20px rgba(123, 44, 191, 0.5);
+    box-shadow: 0 4px 20px rgba(34, 139, 34, 0.6);
     cursor: pointer;
     z-index: 1000;
     transition: transform 0.3s, box-shadow 0.3s;
 
     &:hover:not(:disabled) {
       transform: scale(1.1);
-      box-shadow: 0 6px 30px rgba(123, 44, 191, 0.7);
+      box-shadow: 0 6px 30px rgba(50, 205, 50, 0.8);
     }
 
     &:active:not(:disabled) {
@@ -335,7 +345,7 @@
 
   .btn-floating-top {
     bottom: 7rem;
-    background: linear-gradient(135deg, #00d4ff, #7b2cbf);
+    background: linear-gradient(135deg, #FFD700, #FFA500);
     z-index: 1001;
 
     @media (max-width: 768px) {
