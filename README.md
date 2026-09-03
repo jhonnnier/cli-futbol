@@ -12,6 +12,26 @@ ng serve
 
 Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
 
+## Compilar proyecto 
+
+### Compilación
+
+Node
+```bash
+nvm use 20.19.2
+```
+
+```bash
+ng build --base-href /cli-futbol/
+```
+
+### Subir a git 
+
+```bash
+ npx angular-cli-ghpages   --dir=dist/cli-futbol/browser   --repo=https://github.com/jhonnnier/cli-futbol.git 
+```
+
+
 ## Code scaffolding
 
 Angular CLI includes powerful code scaffolding tools. To generate a new component, run:

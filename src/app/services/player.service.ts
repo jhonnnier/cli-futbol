@@ -55,9 +55,7 @@ export class PlayerService {
   // Ejemplo: [['6', '12'], ['3', '4']] significa que 1 y 2 no pueden estar juntos, ni 3 y 4
   private readonly separatedPairs: [string, string][] = [
     [this.jhonatan, this.jorge],
-    [this.sergio, this.camilo],
-    // [this.edinson, this.goku],
-    [this.edinson, this.jhonnier]
+    [this.sergio, this.camilo]
   ];
 
   readonly enabledPlayers = () => this.players().filter(p => p.enabled);

@@ -1,7 +1,11 @@
 [
-  { "id": "gk4", "name": "Warner", "skill": 4, "selected": true, "image": "" },
-  { "id": "gk2", "name": "Leo", "skill": 4, "selected": true, "image": "https://raw.githubusercontent.com/jhonnnier/cli-futbol/refs/heads/master/src/assets/images/leo.png" },
+  { "id": "gk4", "name": "Warner", "skill": 4, "selected": false, "image": "" },
+  { "id": "gk5", "name": "Moso Acosta", "skill": 4, "selected": true, "image": "" },
+  { "id": "gk3", "name": "Alan", "skill": 4, "selected": true, "image": "https://raw.githubusercontent.com/jhonnnier/cli-futbol/refs/heads/master/src/assets/images/alan.png" },
+  { "id": "gk2", "name": "Leo", "skill": 4, "selected": false, "image": "https://raw.githubusercontent.com/jhonnnier/cli-futbol/refs/heads/master/src/assets/images/leo.png" },
   { "id": "gk1", "name": "Ivan", "skill": 4, "selected": false, "image": "https://raw.githubusercontent.com/jhonnnier/cli-futbol/refs/heads/master/src/assets/images/ivan.png" },
-  { "id": "gk3", "name": "Alan", "skill": 4, "selected": false, "image": "" },
-  { "id": "gk4", "name": "Ricardo", "skill": 4, "selected": false, "image": "" }
+  { "id": "gk5", "name": "Ricardo", "skill": 4, "selected": false, "image": "" },
+  { "id": "gk6", "name": "Edinson", "skill": 4, "selected": false, "image": "https://raw.githubusercontent.com/jhonnnier/cli-futbol/refs/heads/master/src/assets/images/edinson_3.png" },
+  { "id": "gk7", "name": "Luis", "skill": 4, "selected": false, "image": "" },
+  { "id": "gk8", "name": "Leandro", "skill": 4, "selected": false, "image": "" }
 ]
