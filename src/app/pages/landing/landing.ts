@@ -3,6 +3,7 @@ import { PlayerList } from '../../components/player-list/player-list';
 import { TeamGenerator } from '../../components/team-generator/team-generator';
 import { GoalkeeperList } from '../../components/goalkeeper-list/goalkeeper-list';
 import { PlayerService } from '../../services/player.service';
+import { GoalkeeperService } from '../../services/goalkeeper.service';
 
 @Component({
   selector: 'app-landing',
@@ -12,10 +13,14 @@ import { PlayerService } from '../../services/player.service';
 })
 export class Landing implements OnInit, OnDestroy {
   private readonly playerService = inject(PlayerService);
+  private readonly goalkeeperService = inject(GoalkeeperService);
   readonly hideHeader = signal(false);
 
   async ngOnInit(): Promise<void> {
-    await this.playerService.initializePlayers();
+    await Promise.all([
+      this.playerService.initializePlayers(),
+      this.goalkeeperService.initializeGoalkeepers()
+    ]);
   }
 
   ngOnDestroy(): void {
@@ -27,7 +32,7 @@ export class Landing implements OnInit, OnDestroy {
     if (teamsSection) {
       const rect = teamsSection.getBoundingClientRect();
       const windowHeight = window.innerHeight;
-      
+
       // Hide header when teams section is in view (more than 30% visible)
       const isTeamsSectionVisible = rect.top < windowHeight * 0.7 && rect.bottom > windowHeight * 0.3;
       this.hideHeader.set(isTeamsSectionVisible);

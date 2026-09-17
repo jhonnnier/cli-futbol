@@ -3,6 +3,7 @@ import { Player, Team } from '../models/player.model';
 import playersData from '../../assets/data/players.json';
 import { GoalkeeperService } from './goalkeeper.service';
 import { FirebaseService } from './firebase.service';
+import { mergePlayers } from './sync/data-sync';
 
 @Injectable({
   providedIn: 'root'
@@ -64,23 +65,27 @@ export class PlayerService {
   async initializePlayers(): Promise<void> {
     if (this.isInitialized) return;
 
+    // Si Firebase no está disponible (placeholders o fallo de init), ir directo
+    // al camino de fallback sin intentar la lectura remota (Req 5.1, 5.2).
+    if (!this.firebaseService.isAvailable) {
+      const localPlayers = localStorage.getItem(this.storageKey);
+      if (localPlayers) {
+        this.playersData.set(JSON.parse(localPlayers));
+      } else {
+        this.playersData.set(playersData);
+      }
+      this.isInitialized = true;
+      return;
+    }
+
     try {
       const firebasePlayers = await this.firebaseService.getPlayers();
       if (firebasePlayers.length > 0) {
-        // Fusionar datos de Firebase con datos del JSON para preservar propiedades como image
-        const mergedPlayers = firebasePlayers.map(fbPlayer => {
-          const jsonPlayer = playersData.find(p => p.id === fbPlayer.id);
-          if (jsonPlayer) {
-            return {
-              ...fbPlayer,
-              ...(jsonPlayer.image && !fbPlayer.image && { image: jsonPlayer.image }),
-              ...(jsonPlayer.order !== undefined && fbPlayer.order === undefined && { order: jsonPlayer.order })
-            };
-          }
-          return fbPlayer;
-        });
+        // Fusionar datos de Firebase con datos del JSON para preservar propiedades
+        // como image y order (Req 6.1, 6.2, 6.3).
+        const mergedPlayers = mergePlayers(firebasePlayers, playersData);
         this.playersData.set(mergedPlayers);
-        // Guardar los datos fusionados de vuelta a Firebase
+        // Guardar los datos fusionados de vuelta a Firebase (Req 6.5).
         await this.firebaseService.savePlayers(mergedPlayers);
       } else {
         await this.firebaseService.savePlayers(playersData);
