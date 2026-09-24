@@ -155,6 +155,12 @@ Username: jhonnnier
 Password:
 ```
 
+
+Editar skills de los jugadores antes de repartir
+```
+https://jhonnnier.github.io/cli-futbol/?edit=true
+```
+
 👉 **En `Password` pega tu Personal Access Token**, no tu contraseña.
 
 ---
